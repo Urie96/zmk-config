@@ -19,7 +19,7 @@
 // | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
 //                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
                         bindings = <
-   &lt 3 ESC       &kp Q &kp W &kp E &kp R &kp T    &kp Y &kp U &kp I     &kp O   &kp P    &kp BSPC
+   &lt 2 ESC       &kp Q &kp W &kp E &kp R &kp T    &kp Y &kp U &kp I     &kp O   &kp P    &kp BSPC
    &mt LSHIFT TAB  &kp A &kp S &kp D &kp F &kp G    &kp H &kp J &kp K     &kp L   &kp SQT  &mt RSHIFT RET
    &kp LCTRL       &kp Z &kp X &kp C &kp V &kp B    &kp N &kp M &kp COMMA &kp DOT &kp FSLH &kp SEMI
                    &kp RALT &kp LGUI &lt 1 SPACE    &lt 2 SPACE &mo 2  &kp RALT
@@ -53,13 +53,5 @@
                         >;
                 };
 
-                media_layer {
-                        bindings = <
-   &none &none &none &none &none &none                                             &none &none &none &none &none &none
-   &sys_reset &bootloader &none &none &none &none                                  &none &none &none &none &none &none
-   &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     &none &none &none &none &none &none
-                     &none &none &none                                             &none &none &none
-                        >;
-                };
         };
 };
