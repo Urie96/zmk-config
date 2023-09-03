@@ -57,7 +57,7 @@
    &lt 3 ESC           AS(Q) AS(W) AS(E) AS(R) AS(T)    AS(Y) AS(U) AS(I) AS(O) AS(P) AS(BSLH)
    &mt LSHIFT TAB      AS(A) AS(S) AS(D) AS(F) AS(G)    AS(H) AS(J) AS(K) AS(L) AS(SEMI) AS(SQT) 
    &mt LCTRL LC(SPACE) AS(Z) AS(X) AS(C) AS(V) AS(B)    AS(N) AS(M) AS(COMMA) AS(DOT) AS(FSLH) &mt RSHIFT RET
-                   &mt LALT TAB &mt LGUI ESC &lt 1 SPACE    &lt 2 RET &mt RCTRL ESC  &kp BSPC
+                   &mt LALT TAB &mt LGUI LC(SPACE) &lt 1 SPACE    &lt 2 RET &mt RCTRL ESC  &kp BSPC
                         >;
                 };
                 lower_layer {
