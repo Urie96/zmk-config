@@ -8,6 +8,10 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 
+&lt {
+    flavor = "hold-preferred";
+};
+
 / {
     conditional_layers {
         compatible = "zmk,conditional-layers";
@@ -43,16 +47,6 @@
                 <&shifted>,
                 <&kp>;
         };
-        mo_hp: mo_hold_prefer {
-            compatible = "zmk,behavior-hold-tap";
-            label = "mo_hold_prefer";
-            #binding-cells = <2>;
-            flavor = "hold-preferred";
-            tapping-term-ms = <200>;
-            bindings =
-                <&mo>,
-                <&kp>;
-        };
     };
 
     macros {
@@ -86,16 +80,16 @@
 
         default_layer {
             bindings = <
-&mo_hp 3 ESC         &as Q  &as W  &as E         &as R               &as T             &as Y         &as U          &as I      &as O    &as P     &as BSLH
-&mt LSHIFT TAB       &as A  &as S  &as D         &as F               &as G             &as H         &as J          &as K      &as L    &as SEMI  &as SQT
-&mt LCTRL LC(SPACE)  &as Z  &as X  &as C         &as V               &as B             &as N         &as M          &as COMMA  &as DOT  &as FSLH  &mt RSHIFT RET
-                                   &mt LALT TAB  &mt LGUI LC(SPACE)  &mo_hp 1 SPACE    &mo_hp 2 RET  &mt RCTRL ESC  &kp BSPC
+&lt 3 ESC            &as Q  &as W  &as E         &as R               &as T          &as Y        &as U          &as I      &as O    &as P     &as BSLH
+&mt LSHIFT TAB       &as A  &as S  &as D         &as F               &as G          &as H        &as J          &as K      &as L    &as SEMI  &as SQT
+&mt LCTRL LC(SPACE)  &as Z  &as X  &as C         &as V               &as B          &as N        &as M          &as COMMA  &as DOT  &as FSLH  &mt RSHIFT RET
+                                   &mt LALT TAB  &mt LGUI LC(SPACE)  &lt 1 SPACE    &lt 2 ENTER  &mt RCTRL ESC  &kp BSPC
             >;
         };
 
         lower_layer {
             bindings = <
-&trans  &kp N1    &kp N2  &kp N3    &kp N4    &kp N5       &kp GRAVE  &kp MINUS  &kp EQUAL        &kp LBKT  &kp RBKT  &kp BSPC
+&trans  &kp N1    &kp N2  &kp N3    &kp N4    &kp N5       &kp GRAVE  &kp MINUS  &kp EQUAL        &kp LBKT  &kp RBKT  &trans
 &trans  &kp N6    &kp N7  &kp N8    &kp N9    &kp N0       &kp TILDE  &kp UNDER  &kp PLUS         &kp LBRC  &kp RBRC  &trans
 &trans  &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR  &kp RPAR  &trans
                           &trans    &trans    &trans       &trans     &trans     &trans
@@ -122,10 +116,10 @@
 
         micro_layer {
             bindings = <
-&trans  &kp LG(RC(F1))   &kp LG(LC(F2))   &kp LG(LC(F3))   &kp LG(LC(F4))   &kp LG(LC(F5))     &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &kp LG(LC(F6))   &kp LG(LC(F7))   &kp LG(LC(F8))   &kp LG(LC(F9))   &kp LG(LC(F10))    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &kp LG(LC(F11))  &kp LG(LC(F12))  &kp LG(LC(F13))  &kp LG(LC(F14))  &kp LG(LC(F15))    &trans  &trans  &trans  &trans  &trans  &trans
-                                          &trans           &trans           &trans             &trans  &trans  &trans
+&trans  &kp LG(LC(F1))   &kp LG(LC(F2))   &kp LG(LC(F3))   &kp LG(LC(F4))   &kp LG(LC(F5))     &kp LG(LS(N4))  &kp LG(LS(N5))  &kp LG(LC(Q))  &trans  &trans  &trans
+&trans  &kp LG(LC(F6))   &kp LG(LC(F7))   &kp LG(LC(F8))   &kp LG(LC(F9))   &kp LG(LC(F10))    &trans          &trans          &trans         &trans  &trans  &trans
+&trans  &kp LG(LC(F11))  &kp LG(LC(F12))  &kp LG(LC(F13))  &kp LG(LC(F14))  &kp LG(LC(F15))    &trans          &trans          &trans         &trans  &trans  &trans
+                                          &trans           &trans           &trans             &trans          &trans          &trans
             >;
         };
     };
