@@ -116,9 +116,9 @@
 
         micro_layer {
             bindings = <
-&trans  &kp LG(LC(F1))   &kp LG(LC(F2))   &kp LG(LC(F3))   &kp LG(LC(F4))   &kp LG(LC(F5))     &kp LG(LS(N4))  &kp LG(LS(N5))  &kp LG(LC(Q))  &trans  &trans  &trans
-&trans  &kp LG(LC(F6))   &kp LG(LC(F7))   &kp LG(LC(F8))   &kp LG(LC(F9))   &kp LG(LC(F10))    &trans          &trans          &trans         &trans  &trans  &trans
-&trans  &kp LG(LC(F11))  &kp LG(LC(F12))  &kp LG(LC(F13))  &kp LG(LC(F14))  &kp LG(LC(F15))    &trans          &trans          &trans         &trans  &trans  &trans
+&trans  &as LG(LC(F1))   &as LG(LC(F2))   &as LG(LC(F3))   &as LG(LC(F4))   &as LG(LC(F5))     &kp LG(LS(N4))  &kp LG(LS(N5))  &as LG(LC(Q))  &trans  &trans  &trans
+&trans  &as LG(LC(F6))   &as LG(LC(F7))   &as LG(LC(F8))   &as LG(LC(F9))   &as LG(LC(F10))    &trans          &trans          &trans         &trans  &trans  &trans
+&trans  &as LG(LC(F11))  &as LG(LC(F12))  &as LG(LC(F13))  &as LG(LC(F14))  &as LG(LC(F15))    &trans          &trans          &trans         &trans  &trans  &trans
                                           &trans           &trans           &trans             &trans          &trans          &trans
             >;
         };
