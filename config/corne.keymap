@@ -32,6 +32,16 @@
             key-positions = <16 19>;// FJ
             bindings = <&caps_word>;
         };
+
+        shift {
+            bindings = <&kp LEFT_SHIFT>;
+            key-positions = <15 16>;
+        };
+
+        layer3 {
+            bindings = <&mo 3>;
+            key-positions = <37 40>;
+        };
     };
 };
 
@@ -46,6 +56,17 @@
             bindings =
                 <&shifted>,
                 <&kp>;
+        };
+        ht: HOLD_TAP {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOLD_TAP";
+            bindings =
+                <&kp>,
+                <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "tap-preferred";
         };
     };
 
@@ -89,37 +110,37 @@
 
         lower_layer {
             bindings = <
-&trans  &kp N1    &kp N2  &kp N3    &kp N4    &kp N5       &kp GRAVE  &kp MINUS  &kp EQUAL        &kp LBKT  &kp RBKT  &trans
-&trans  &kp N6    &kp N7  &kp N8    &kp N9    &kp N0       &kp TILDE  &kp UNDER  &kp PLUS         &kp LBRC  &kp RBRC  &trans
-&trans  &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR  &kp RPAR  &trans
+&trans  &kp N1    &kp N2  &kp N3    &kp N4    &kp N5       &as GRAVE  &kp MINUS  &kp EQUAL        &ht LBKT RBKT  &as BSLH  &trans
+&trans  &kp N6    &kp N7  &kp N8    &kp N9    &kp N0       &as SQT    &kp UNDER  &kp PLUS         &kp LBRC       &kp RBRC  &trans
+&trans  &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR       &kp RPAR  &trans
                           &trans    &trans    &trans       &trans     &trans     &trans
             >;
         };
 
         raise_layer {
             bindings = <
-&trans  &kp F1   &kp F2   &kp F3  &kp F4  &kp F5     &trans    &kp PAGE_UP  &kp UP    &kp PAGE_DOWN  &trans   &trans
-&trans  &kp F6   &kp F7   &kp F8  &kp F9  &kp F10    &kp HOME  &kp LEFT     &kp DOWN  &kp RIGHT      &kp END  &trans
-&trans  &kp F11  &kp F12  &trans  &trans  &trans     &trans    &trans       &trans    &trans         &trans   &trans
-                          &trans  &trans  &trans     &trans    &trans       &trans
+&trans  &kp F1   &kp F2   &kp F3   &kp F4   &kp F5     &trans    &kp PAGE_UP  &kp UP    &kp PAGE_DOWN  &trans   &trans
+&trans  &kp F6   &kp F7   &kp F8   &kp F9   &kp F10    &kp HOME  &kp LEFT     &kp DOWN  &kp RIGHT      &kp END  &trans
+&trans  &kp F11  &kp F12  &kp F13  &kp F14  &kp F15    &trans    &trans       &trans    &trans         &trans   &trans
+                          &trans   &trans   &trans     &trans    &trans       &trans
             >;
         };
 
         media_layer {
             bindings = <
-&trans  &trans  &trans  &trans      &trans       &trans    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &bt BT_CLR
-&trans  &trans  &trans  &trans      &trans       &trans    &kp C_PP      &kp C_PREV    &kp C_NEXT    &trans        &trans        &trans
-&trans  &trans  &trans  &trans      &trans       &trans    &kp K_MUTE    &kp C_VOL_DN  &kp C_VOL_UP  &kp C_BRI_UP  &kp C_BRI_DN  &trans
-                        &sys_reset  &bootloader  &trans    &sys_reset    &bootloader   &trans
+&none  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &none       &none         &none         &none         &none         &none
+&none  &none         &none         &none         &none         &bt BT_CLR      &kp C_PP    &kp C_PREV    &kp C_NEXT    &none         &none         &none
+&none  &none         &none         &none         &none         &none           &kp K_MUTE  &kp C_VOL_DN  &kp C_VOL_UP  &kp C_BRI_DN  &kp C_BRI_UP  &none
+                                   &sys_reset    &none         &bootloader     &sys_reset  &none         &bootloader
             >;
         };
 
-        micro_layer {
+        macro_layer {
             bindings = <
-&trans  &as LG(LC(F1))   &as LG(LC(F2))   &as LG(LC(F3))   &as LG(LC(F4))   &as LG(LC(F5))     &kp LG(LS(N4))  &kp LG(LS(N5))  &as LG(LC(Q))  &trans  &trans  &trans
-&trans  &as LG(LC(F6))   &as LG(LC(F7))   &as LG(LC(F8))   &as LG(LC(F9))   &as LG(LC(F10))    &trans          &trans          &trans         &trans  &trans  &trans
-&trans  &as LG(LC(F11))  &as LG(LC(F12))  &as LG(LC(F13))  &as LG(LC(F14))  &as LG(LC(F15))    &trans          &trans          &trans         &trans  &trans  &trans
-                                          &trans           &trans           &trans             &trans          &trans          &trans
+&none  &as LG(LC(F1))   &as LG(LC(F2))   &as LG(LC(F3))   &as LG(LC(F4))   &as LG(LC(F5))     &kp LG(LS(N4))  &kp LG(LS(N5))  &as LG(LC(Q))  &none         &none         &none
+&none  &as LG(LC(F6))   &as LG(LC(F7))   &as LG(LC(F8))   &as LG(LC(F9))   &as LG(LC(F10))    &kp C_PP        &kp C_PREV      &kp C_NEXT     &none         &none         &none
+&none  &as LG(LC(F11))  &as LG(LC(F12))  &as LG(LC(F13))  &as LG(LC(F14))  &as LG(LC(F15))    &kp K_MUTE      &kp C_VOL_DN    &kp C_VOL_UP   &kp C_BRI_DN  &kp C_BRI_UP  &none
+                                         &none            &none            &none              &none           &none           &none
             >;
         };
     };
