@@ -31,16 +31,48 @@
             timeout-ms = <50>;
             key-positions = <16 19>;// FJ
             bindings = <&caps_word>;
+            layers = <0>;
         };
 
-        shift {
+        combo_shift {
             bindings = <&kp LEFT_SHIFT>;
-            key-positions = <15 16>;
+            key-positions = <34 35>;
         };
 
-        layer3 {
+        combo_layer3 {
             bindings = <&mo 3>;
             key-positions = <37 40>;
+            layers = <0>;
+        };
+
+        combo_left_bracket {
+            bindings = <&kp LEFT_BRACKET>;
+            key-positions = <7 8>;
+            layers = <0>;
+        };
+
+        combo_left_brace {
+            bindings = <&kp LEFT_BRACE>;
+            key-positions = <19 20>;
+            layers = <0>;
+        };
+
+        combo_left_par {
+            bindings = <&kp LEFT_PARENTHESIS>;
+            key-positions = <31 32>;
+            layers = <0>;
+        };
+
+        combo_sqt {
+            bindings = <&kp SQT>;
+            key-positions = <3 4>;
+            layers = <0>;
+        };
+
+        combo_dqt {
+            bindings = <&kp DQT>;
+            key-positions = <15 16>;
+            layers = <0>;
         };
     };
 };
@@ -67,6 +99,14 @@
             #binding-cells = <2>;
             tapping-term-ms = <200>;
             flavor = "tap-preferred";
+        };
+        td0: td0 {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TD0";
+            #binding-cells = <0>;
+            bindings =
+                <&mt LGUI LC(SPACE)>,
+                <&kp LG(SPACE)>;
         };
     };
 
@@ -101,28 +141,28 @@
 
         default_layer {
             bindings = <
-&lt 3 ESC            &as Q  &as W  &as E         &as R               &as T          &as Y        &as U          &as I      &as O    &as P     &as BSLH
-&mt LSHIFT TAB       &as A  &as S  &as D         &as F               &as G          &as H        &as J          &as K      &as L    &as SEMI  &as SQT
-&mt LCTRL LC(SPACE)  &as Z  &as X  &as C         &as V               &as B          &as N        &as M          &as COMMA  &as DOT  &as FSLH  &mt RSHIFT RET
-                                   &mt LALT TAB  &mt LGUI LC(SPACE)  &lt 1 SPACE    &lt 2 ENTER  &mt RCTRL ESC  &kp BSPC
+&none  &as Q  &as W  &as E         &as R  &as T          &as Y        &as U          &as I      &as O    &as P     &none
+&none  &as A  &as S  &as D         &as F  &as G          &as H        &as J          &as K      &as L    &as SEMI  &none
+&none  &as Z  &as X  &as C         &as V  &as B          &as N        &as M          &as COMMA  &as DOT  &as FSLH  &none
+                     &mt LALT TAB  &td0   &lt 1 SPACE    &lt 2 ENTER  &mt RCTRL ESC  &kp BSPC
             >;
         };
 
         lower_layer {
             bindings = <
-&trans  &kp N1    &kp N2  &kp N3    &kp N4    &kp N5       &as GRAVE  &kp MINUS  &kp EQUAL        &ht LBKT RBKT  &as BSLH  &trans
-&trans  &kp N6    &kp N7  &kp N8    &kp N9    &kp N0       &as SQT    &kp UNDER  &kp PLUS         &kp LBRC       &kp RBRC  &trans
-&trans  &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR       &kp RPAR  &trans
-                          &trans    &trans    &trans       &trans     &trans     &trans
+&none  &kp N1    &kp N2  &kp N3    &kp N4    &kp N5       &as GRAVE  &kp MINUS  &kp EQUAL        &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &none
+&none  &kp N6    &kp N7  &kp N8    &kp N9    &kp N0       &as SQT    &kp UNDER  &kp PLUS         &kp LBRC          &kp RBRC           &none
+&none  &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR          &kp RPAR           &none
+                         &trans    &trans    &trans       &trans     &trans     &trans
             >;
         };
 
         raise_layer {
             bindings = <
-&trans  &kp F1   &kp F2   &kp F3   &kp F4   &kp F5     &trans    &kp PAGE_UP  &kp UP    &kp PAGE_DOWN  &trans   &trans
-&trans  &kp F6   &kp F7   &kp F8   &kp F9   &kp F10    &kp HOME  &kp LEFT     &kp DOWN  &kp RIGHT      &kp END  &trans
-&trans  &kp F11  &kp F12  &kp F13  &kp F14  &kp F15    &trans    &trans       &trans    &trans         &trans   &trans
-                          &trans   &trans   &trans     &trans    &trans       &trans
+&none  &kp F1   &kp F2   &kp F3   &kp F4   &kp F5     &none     &kp PAGE_UP  &kp UP    &kp PAGE_DOWN  &none    &none
+&none  &kp F6   &kp F7   &kp F8   &kp F9   &kp F10    &kp HOME  &kp LEFT     &kp DOWN  &kp RIGHT      &kp END  &none
+&none  &kp F11  &kp F12  &kp F13  &kp F14  &kp F15    &none     &none        &none     &none          &none    &none
+                         &trans   &trans   &trans     &trans    &trans       &trans
             >;
         };
 
