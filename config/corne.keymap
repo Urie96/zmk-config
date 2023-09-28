@@ -143,7 +143,7 @@
         lower_layer {
             bindings = <
 &none  &kp N1    &kp N2  &kp N3    &kp N4    &kp N5       &as GRAVE  &kp MINUS  &kp EQUAL        &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &none
-&none  &kp N6    &kp N7  &kp N8    &kp N9    &kp N0       &as SQT    &kp UNDER  &kp PLUS         &kp LBRC          &kp RBRC           &none
+&none  &kp N6    &kp N7  &kp N8    &kp N9    &kp N0       &as BSLH   &kp UNDER  &kp PLUS         &kp LBRC          &kp RBRC           &none
 &none  &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR          &kp RPAR           &none
                          &trans    &trans    &trans       &trans     &trans     &trans
             >;
