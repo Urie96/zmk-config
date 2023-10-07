@@ -36,7 +36,7 @@
 
         combo_shift {
             bindings = <&kp LEFT_SHIFT>;
-            key-positions = <34 35>;
+            key-positions = <36 37>;
         };
 
         combo_layer3 {
@@ -85,16 +85,12 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
-            bindings =
-                <&shifted>,
-                <&kp>;
+            bindings = <&shifted>, <&kp>;
         };
         ht: HOLD_TAP {
             compatible = "zmk,behavior-hold-tap";
             label = "HOLD_TAP";
-            bindings =
-                <&kp>,
-                <&kp>;
+            bindings = <&kp>, <&kp>;
 
             #binding-cells = <2>;
             tapping-term-ms = <200>;
@@ -177,7 +173,6 @@
         };
     };
 };
-
 
 &led_strip {
     chain-length = <21>;
