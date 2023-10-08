@@ -28,7 +28,7 @@
         compatible = "zmk,combos";
 
         combo_caps_word {
-            timeout-ms = <50>;
+            timeout-ms = <20>;
             key-positions = <16 19>;// FJ
             bindings = <&caps_word>;
             layers = <0>;
@@ -37,42 +37,49 @@
         combo_shift {
             bindings = <&kp LEFT_SHIFT>;
             key-positions = <36 37>;
+            timeout-ms = <20>;
         };
 
         combo_layer3 {
             bindings = <&mo 3>;
             key-positions = <37 40>;
             layers = <0>;
+            timeout-ms = <20>;
         };
 
         combo_left_bracket {
             bindings = <&kp LEFT_BRACKET>;
             key-positions = <7 8>;
             layers = <0>;
+            timeout-ms = <20>;
         };
 
         combo_left_brace {
             bindings = <&kp LEFT_BRACE>;
             key-positions = <19 20>;
             layers = <0>;
+            timeout-ms = <20>;
         };
 
         combo_left_par {
             bindings = <&kp LEFT_PARENTHESIS>;
             key-positions = <31 32>;
             layers = <0>;
+            timeout-ms = <20>;
         };
 
         combo_sqt {
             bindings = <&kp SQT>;
             key-positions = <3 4>;
             layers = <0>;
+            timeout-ms = <20>;
         };
 
         combo_dqt {
             bindings = <&kp DQT>;
             key-positions = <15 16>;
             layers = <0>;
+            timeout-ms = <20>;
         };
     };
 };
