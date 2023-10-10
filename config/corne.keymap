@@ -48,21 +48,21 @@
         };
 
         combo_left_bracket {
-            bindings = <&kp LEFT_BRACKET>;
+            bindings = <&as LEFT_BRACKET>;
             key-positions = <7 8>;
             layers = <0>;
             timeout-ms = <20>;
         };
 
         combo_left_brace {
-            bindings = <&kp LEFT_BRACE>;
+            bindings = <&as LEFT_BRACE>;
             key-positions = <19 20>;
             layers = <0>;
             timeout-ms = <20>;
         };
 
         combo_left_par {
-            bindings = <&kp LEFT_PARENTHESIS>;
+            bindings = <&as LEFT_PARENTHESIS>;
             key-positions = <31 32>;
             layers = <0>;
             timeout-ms = <20>;
@@ -185,6 +185,6 @@
     chain-length = <21>;
 };
 
-&nice_view_spi {
-      cs-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
-};
+# &nice_view_spi {
+#       cs-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
+# };
