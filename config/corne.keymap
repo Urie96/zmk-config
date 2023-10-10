@@ -48,21 +48,21 @@
         };
 
         combo_left_bracket {
-            bindings = <&as LEFT_BRACKET>;
+            bindings = <&ht LEFT_BRACKET RIGHT_BRACKET>;
             key-positions = <7 8>;
             layers = <0>;
             timeout-ms = <20>;
         };
 
         combo_left_brace {
-            bindings = <&as LEFT_BRACE>;
+            bindings = <&ht LEFT_BRACE RIGHT_BRACE>;
             key-positions = <19 20>;
             layers = <0>;
             timeout-ms = <20>;
         };
 
         combo_left_par {
-            bindings = <&as LEFT_PARENTHESIS>;
+            bindings = <&ht LEFT_PARENTHESIS RIGHT_PARENTHESIS>;
             key-positions = <31 32>;
             layers = <0>;
             timeout-ms = <20>;
