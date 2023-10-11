@@ -28,7 +28,7 @@
         compatible = "zmk,combos";
 
         combo_caps_word {
-            timeout-ms = <20>;
+            timeout-ms = <50>;
             key-positions = <16 19>;// FJ
             bindings = <&caps_word>;
             layers = <0>;
@@ -44,7 +44,7 @@
             bindings = <&mo 3>;
             key-positions = <37 40>;
             layers = <0>;
-            timeout-ms = <20>;
+            timeout-ms = <50>;
         };
 
         combo_left_bracket {
@@ -97,7 +97,7 @@
         ht: HOLD_TAP {
             compatible = "zmk,behavior-hold-tap";
             label = "HOLD_TAP";
-            bindings = <&kp>, <&kp>;
+            bindings = <&nr>, <&kp>;
 
             #binding-cells = <2>;
             tapping-term-ms = <200>;
@@ -128,6 +128,14 @@
                 <&macro_pause_for_release>,
                 <&macro_release>,
                 <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>;
+        };
+        nr: macro_no_repeat {
+            #binding-cells = <1>;
+            label = "MACRO_NO_REAPEAT";
+            compatible = "zmk,behavior-macro-one-param";
+            bindings =
+                <&macro_param_1to1>,
+                <&macro_tap &kp MACRO_PLACEHOLDER>;
         };
     };
 
