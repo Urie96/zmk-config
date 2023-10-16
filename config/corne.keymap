@@ -167,9 +167,9 @@
 
         raise_layer {
             bindings = <
-&none  &kp F1   &kp F2   &kp F3             &kp F4        &kp F5     &none   &kp HOME   &kp UP    &kp END    &none  &none
-&none  &kp F6   &kp F7   &mt LEFT_SHIFT F8  &mt LCTRL F9  &kp F10    &none   &kp LEFT   &kp DOWN  &kp RIGHT  &none  &none
-&none  &kp F11  &kp F12  &kp F13            &kp F14       &kp F15    &none   &kp PG_UP  &none     &kp PG_DN  &none  &none
+&none  &as F1   &as F2   &as F3             &as F4        &as F5     &none   &kp HOME   &kp UP    &kp END    &none  &none
+&none  &as F6   &as F7   &mt LEFT_SHIFT F8  &mt LCTRL F9  &as F10    &none   &kp LEFT   &kp DOWN  &kp RIGHT  &none  &none
+&none  &as F11  &as F12  &as F13            &as F14       &as F15    &none   &kp PG_UP  &none     &kp PG_DN  &none  &none
                          &trans             &trans        &trans     &trans  &trans     &trans
             >;
         };
