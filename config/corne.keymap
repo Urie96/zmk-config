@@ -1,12 +1,26 @@
-/*
- * Copyright (c) 2020 The ZMK Contributors
- *
- * SPDX-License-Identifier: MIT
- */
-
 #include <behaviors.dtsi>
-#include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+
+/* activate bluetooth */
+#define CONFIG_WIRELESS 1
+
+#if CONFIG_WIRELESS
+    #include <dt-bindings/zmk/bt.h>
+    #define _BT_SEL_KEYS_ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_CLR
+#else
+    #define _BT_SEL_KEYS_ &trans &trans &trans &trans &trans
+#endif
+
+#include "../zmk-nodefree-config/helper.h"
+#include "../zmk-nodefree-config/keypos_def/keypos_42keys.h"
+#include "combos.dtsi"
+
+/* Global settings */
+
+&sk {  // sticky-key config
+    release-after-ms = <3000>;
+    quick-release;             // no double capitalization when rolling keys
+};
 
 &lt {
     flavor = "hold-preferred";
@@ -16,188 +30,141 @@
     /delete-property/ ignore-modifiers;
 };
 
-/ {
-    conditional_layers {
-        compatible = "zmk,conditional-layers";
-
-        tri_layer {
-            if-layers = <1 2>;
-            then-layer = <4>;
-        };
-    };
-};
-
-/ {
-    combos {
-        compatible = "zmk,combos";
-
-        combo_caps_word {
-            timeout-ms = <50>;
-            key-positions = <16 19>;// FJ
-            bindings = <&caps_word>;
-            layers = <0>;
-        };
-
-        combo_shift {
-            bindings = <&kp LEFT_SHIFT>;
-            key-positions = <36 37>;
-            timeout-ms = <20>;
-        };
-
-        combo_layer3 {
-            bindings = <&mo 3>;
-            key-positions = <37 40>;
-            layers = <0>;
-            timeout-ms = <50>;
-        };
-
-        combo_left_bracket {
-            bindings = <&ht RIGHT_BRACKET LEFT_BRACKET>;
-            key-positions = <7 8>;
-            layers = <0>;
-            timeout-ms = <20>;
-        };
-
-        combo_left_brace {
-            bindings = <&ht RIGHT_BRACE LEFT_BRACE>;
-            key-positions = <19 20>;
-            layers = <0>;
-            timeout-ms = <20>;
-        };
-
-        combo_left_par {
-            bindings = <&ht RIGHT_PARENTHESIS LEFT_PARENTHESIS>;
-            key-positions = <31 32>;
-            layers = <0>;
-            timeout-ms = <20>;
-        };
-
-        combo_sqt {
-            bindings = <&kp SQT>;
-            key-positions = <3 4>;
-            layers = <0>;
-            timeout-ms = <20>;
-        };
-
-        combo_dqt {
-            bindings = <&kp DQT>;
-            key-positions = <15 16>;
-            layers = <0>;
-            timeout-ms = <20>;
-        };
-    };
-};
-
-/ {
-    behaviors {
-        as_ht: autoshift_hold_tap {
-            compatible = "zmk,behavior-hold-tap";
-            label = "AUTOSHIFT_HOLD_TAP";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <200>;
-            bindings = <&shifted>, <&kp>;
-        };
-        ht: HOLD_TAP {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOLD_TAP";
-            bindings = <&nr>, <&kp>;
-
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            flavor = "tap-preferred";
-        };
-    };
-
-    macros {
-        shifted: macro_shifted_kp {
-            #binding-cells = <1>;
-            label = "MACRO_SHIFTED_KP";
-            compatible = "zmk,behavior-macro-one-param";
-            bindings =
-                <&macro_press>,
-                <&kp LSHFT &macro_param_1to1>,
-                <&macro_tap>,
-                <&kp MACRO_PLACEHOLDER>,
-                <&macro_release>,
-                <&kp LSHFT>;
-        };
-        as: autoshift {
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            label = "AUTOSHIFT_KP";
-            bindings =
-                <&macro_press>,
-                <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>,
-                <&macro_pause_for_release>,
-                <&macro_release>,
-                <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>;
-        };
-        nr: macro_no_repeat {
-            #binding-cells = <1>;
-            label = "MACRO_NO_REAPEAT";
-            compatible = "zmk,behavior-macro-one-param";
-            bindings =
-                <&macro_param_1to1>,
-                <&macro_tap>,
-                <&kp MACRO_PLACEHOLDER>;
-        };
-    };
-
-    keymap {
-        compatible = "zmk,keymap";
-
-        default_layer {
-            bindings = <
-&none  &as Q  &as W  &as E         &as R               &as T          &as Y        &as U          &as I      &as O    &as P     &none
-&none  &as A  &as S  &as D         &as F               &as G          &as H        &as J          &as K      &as L    &as SEMI  &none
-&none  &as Z  &as X  &as C         &as V               &as B          &as N        &as M          &as COMMA  &as DOT  &as FSLH  &none
-                     &mt LALT TAB  &mt LGUI LC(SPACE)  &lt 1 SPACE    &lt 2 ENTER  &mt RCTRL ESC  &kp BSPC
-            >;
-        };
-
-        lower_layer {
-            bindings = <
-&none  &kp N1    &kp N2  &kp N3         &kp N4        &kp N5       &as GRAVE  &kp MINUS            &kp EQUAL        &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &none
-&none  &kp N6    &kp N7  &mt LSHIFT N8  &mt LCTRL N9  &kp N0       &as BSLH   &mt RCMD UNDERSCORE  &mt RALT PLUS    &kp LBRC          &kp RBRC           &none
-&none  &kp EXCL  &kp AT  &kp HASH       &kp DLLR      &kp PRCNT    &kp CARET  &kp AMPS             &kp KP_MULTIPLY  &kp LPAR          &kp RPAR           &none
-                         &trans         &trans        &trans       &trans     &trans               &trans
-            >;
-        };
-
-        raise_layer {
-            bindings = <
-&none  &as F1   &as F2   &as F3             &as F4        &as F5     &none   &kp HOME   &kp UP    &kp END    &none  &none
-&none  &as F6   &as F7   &mt LEFT_SHIFT F8  &mt LCTRL F9  &as F10    &none   &kp LEFT   &kp DOWN  &kp RIGHT  &none  &none
-&none  &as F11  &as F12  &as F13            &as F14       &as F15    &none   &kp PG_UP  &none     &kp PG_DN  &none  &none
-                         &trans             &trans        &trans     &trans  &trans     &trans
-            >;
-        };
-
-        media_layer {
-            bindings = <
-&none  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &none       &none         &none         &none         &none         &none
-&none  &none         &none         &none         &none         &bt BT_CLR      &kp C_PP    &kp C_PREV    &kp C_NEXT    &none         &none         &none
-&none  &none         &none         &none         &none         &none           &kp K_MUTE  &kp C_VOL_DN  &kp C_VOL_UP  &kp C_BRI_DN  &kp C_BRI_UP  &none
-                                   &sys_reset    &none         &bootloader     &sys_reset  &none         &bootloader
-            >;
-        };
-
-        macro_layer {
-            bindings = <
-&none  &as LG(LC(F1))   &as LG(LC(F2))   &as LG(LC(F3))   &as LG(LC(F4))   &as LG(LC(F5))     &kp LG(LS(N4))  &kp LG(LS(N5))  &as LG(LC(Q))  &none         &none         &none
-&none  &as LG(LC(F6))   &as LG(LC(F7))   &as LG(LC(F8))   &as LG(LC(F9))   &as LG(LC(F10))    &kp C_PP        &kp C_PREV      &kp C_NEXT     &none         &none         &none
-&none  &as LG(LC(F11))  &as LG(LC(F12))  &as LG(LC(F13))  &as LG(LC(F14))  &as LG(LC(F15))    &kp K_MUTE      &kp C_VOL_DN    &kp C_VOL_UP   &kp C_BRI_DN  &kp C_BRI_UP  &none
-                                         &none            &none            &none              &none           &none           &none
-            >;
-        };
-    };
-};
-
 &led_strip {
-    chain-length = <21>;
+    // chain-length = <21>;
 };
 
 &nice_view_spi {
-      cs-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
+    // cs-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
 };
+
+// ZMK_CONDITIONAL_LAYER(1 2, 4)
+
+ZMK_BEHAVIOR(as_ht, hold_tap,
+    flavor = "tap-preferred";
+    tapping-term-ms = <200>;
+    require-prior-idle-ms = <125>;
+    bindings = <&shifted>, <&kp>;
+)
+
+ZMK_BEHAVIOR(ht, hold_tap,
+    flavor = "tap-preferred";
+    tapping-term-ms = <200>;
+    bindings = <&no_re>, <&kp>;
+)
+
+ZMK_BEHAVIOR(shifted, macro_one_param,
+    bindings = 
+      <&macro_press>,
+      <&kp LSHFT &macro_param_1to1>,
+      <&macro_tap>,
+      <&kp MACRO_PLACEHOLDER>,
+      <&macro_release>,
+      <&kp LSHFT>;
+)
+
+ZMK_BEHAVIOR(as, macro_one_param,
+    bindings = 
+      <&macro_press>,
+      <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>,
+      <&macro_pause_for_release>,
+      <&macro_release>,
+      <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>;
+)
+
+ZMK_BEHAVIOR(as, macro_one_param,
+    bindings = 
+      <&macro_press>,
+      <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>,
+      <&macro_pause_for_release>,
+      <&macro_release>,
+      <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>;
+)
+
+ZMK_BEHAVIOR(no_re, macro_one_param,
+    bindings = 
+      <&macro_param_1to1>,
+      <&macro_tap>,
+      <&kp MACRO_PLACEHOLDER>;
+)
+
+#define MAKE_HT_PAIR(NAME, R_KEY, L_KEY) \
+    ZMK_BEHAVIOR(p_ ## NAME, macro, bindings = <&kp R_KEY &kp L_KEY>;) \
+    ZMK_BEHAVIOR(ht_ ## NAME, hold_tap, \
+        flavor = "tap-preferred"; \
+        tapping-term-ms = <200>; \
+        bindings = <&p_ ## NAME>, <&kp R_KEY>; \
+    )
+
+MAKE_HT_PAIR(bkt, RBKT, LBKT)
+MAKE_HT_PAIR(brc, RBRC, LBRC)
+MAKE_HT_PAIR(par, RPAR, LPAR)
+#define HT_BKT &ht_bkt 0 0
+#define HT_BRC &ht_brc 0 0
+#define HT_PAR &ht_par 0 0
+
+// tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
+ZMK_BEHAVIOR(smart_shft, mod_morph,
+    bindings = <&sk LSHFT>, <&caps_word>;
+    mods = <(MOD_LSFT)>;
+)
+
+/*                KEY POSITIONS
+
+  ╭─────────────────────╮ ╭─────────────────────╮
+  │ LT4 LT3 LT2 LT1 LT0 │ │ RT0 RT1 RT2 RT3 RT4 │
+  │ LM4 LM3 LM2 LM1 LM0 │ │ RM0 RM1 RM2 RM3 RM4 │
+  │ LB4 LB3 LB2 LB1 LB0 │ │ RB0 RB1 RB2 RB3 RB4 │
+  ╰───────╮ LH2 LH1 LH0 │ │ RH0 RH1 RH2 ╭───────╯
+          ╰─────────────╯ ╰─────────────╯ */
+
+// use require-prior-idle-ms for combos
+#undef COMBO_HOOK
+#define COMBO_HOOK require-prior-idle-ms = <150>;
+
+#undef COMBO_TERM
+#define COMBO_TERM 20
+
+ZMK_COMBO(bkt, HT_BKT, RT1 RT2, 0)
+ZMK_COMBO(brc, HT_BRC, RM1 RM2, 0)
+ZMK_COMBO(par, HT_PAR, RB1 RB2, 0)
+ZMK_COMBO(sqt, &kp SQT, LT1 LT2, 0)
+ZMK_COMBO(dqt, &kp DQT, LM1 LM2, 0)
+
+#define XXX &none
+#define ___ &trans
+#define AS(key) &as key
+#define KP(key) &kp key
+#define MT(hold_key,tap_key) &mt hold_key tap_key
+#define LT_1(tap_key) &lt 1 tap_key
+#define LT_2(tap_key) &lt 2 tap_key
+#define LT_3(tap_key) &lt 3 tap_key
+#define HYPER &kp LG(LA(LCTRL))
+
+ZMK_LAYER(base,
+    XXX AS(Q) AS(W) AS(E) AS(R) AS(T)             AS(Y) AS(U) AS(I) AS(O) AS(P) XXX
+    XXX AS(A) AS(S) AS(D) AS(F) AS(G)             AS(H) AS(J) AS(K) AS(L) AS(SEMI) XXX
+    XXX AS(Z) AS(X) AS(C) AS(V) AS(B)             AS(N) AS(M) AS(COMMA) AS(DOT) AS(FSLH) XXX
+    MT(LALT,TAB) MT(LGUI,LC(SPACE)) LT_1(SPACE)   LT_2(ENTER) MT(RCTRL,ESC) KP(BSPC)
+)
+
+ZMK_LAYER(lower,
+    XXX KP(N1) KP(N2) KP(N3) KP(N4) KP(N5)                 AS(GRAVE) KP(MINUS) KP(EQUAL) KP(LEFT_BRACKET) KP(RIGHT_BRACKET) XXX
+    XXX KP(N6) KP(N7) MT(LSHFT,N8) MT(LCTRL,N9) LT_3(N0)   AS(BSLH) MT(RCMD,UNDERSCORE) MT(RALT,PLUS) KP(LBRC) KP(RBRC) XXX
+    XXX KP(EXCL) KP(AT) KP(HASH) KP(DLLR) KP(PRCNT)        KP(CARET) KP(AMPS) KP(KP_MULTIPLY) KP(LPAR) KP(RPAR) XXX
+    ___ ___ HYPER                                          HYPER ___ ___
+)
+
+ZMK_LAYER(raise,
+    XXX AS(F1) AS(F2) AS(F3) AS(F4) AS(F5)                XXX KP(HOME) KP(UP) KP(END) XXX XXX
+    XXX AS(F6) AS(F7) MT(LSHFT,F8) MT(LCTRL,F9) AS(F10)   &smart_shft KP(LEFT) KP(DOWN) KP(RIGHT) XXX XXX
+    XXX AS(F11) AS(F12) AS(F13) AS(F14) AS(F15)           XXX KP(PG_UP) XXX KP(PG_DN) XXX XXX
+    ___ ___ HYPER                                         HYPER ___ ___
+)
+
+ZMK_LAYER(media,
+    XXX  _BT_SEL_KEYS_           XXX XXX XXX XXX XXX XXX
+    XXX XXX XXX XXX XXX XXX      KP(C_PP) KP(C_PREV) KP(C_NEXT) XXX XXX XXX
+    XXX XXX XXX XXX XXX XXX      KP(K_MUTE) KP(C_VOL_DN) KP(C_VOL_UP) KP(C_BRI_DN) KP(C_BRI_UP) XXX
+    XXX &sys_reset &bootloader   &bootloader &sys_reset XXX
+)

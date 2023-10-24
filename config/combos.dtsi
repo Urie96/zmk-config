@@ -1,0 +1,31 @@
+/*                KEY POSITIONS
+
+  ╭─────────────────────╮ ╭─────────────────────╮
+  │ LT4 LT3 LT2 LT1 LT0 │ │ RT0 RT1 RT2 RT3 RT4 │
+  │ LM4 LM3 LM2 LM1 LM0 │ │ RM0 RM1 RM2 RM3 RM4 │
+  │ LB4 LB3 LB2 LB1 LB0 │ │ RB0 RB1 RB2 RB3 RB4 │
+  ╰───────╮ LH2 LH1 LH0 │ │ RH0 RH1 RH2 ╭───────╯
+          ╰─────────────╯ ╰─────────────╯ */
+
+// use require-prior-idle-ms for combos
+#undef COMBO_HOOK
+#define COMBO_HOOK require-prior-idle-ms = <150>;
+
+#define COMBO_TERM_FAST 20
+#define COMBO_TERM_SLOW 50
+
+ZMK_COMBO(combo_caps_word, &caps_word, LM1 RM1, 0, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_layer3, &mo 3, LH1 RH1, 0, COMBO_TERM_SLOW)
+
+// tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
+ZMK_BEHAVIOR(smart_shft, mod_morph,
+    bindings = <&sk LSHFT>, <&caps_word>;
+    mods = <(MOD_LSFT)>;
+)
+
+ZMK_COMBO(combo_shift, &kp LEFT_SHIFT, LH2 LH1, ALL, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_left_bracket, &ht RIGHT_BRACKET LEFT_BRACKET, RT1 RT2, 0, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_left_brace, &ht RIGHT_BRACE LEFT_BRACE, RM1 RM2, 0, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_left_par, &ht RIGHT_PARENTHESIS LEFT_PARENTHESIS, RB1 RB2, 0, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_sqt, &kp SQT, LT1 LT2, 0, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_dqt, &kp DQT, LM1 LM2, 0, COMBO_TERM_SLOW)
