@@ -40,18 +40,25 @@
 
 // ZMK_CONDITIONAL_LAYER(1 2, 4)
 
-ZMK_BEHAVIOR(as_ht, hold_tap,
-    flavor = "tap-preferred";
-    tapping-term-ms = <200>;
-    require-prior-idle-ms = <125>;
-    bindings = <&shifted>, <&kp>;
-)
+#define MAKE_HT(name, first_bind) \
+    ZMK_BEHAVIOR(name, hold_tap, \
+        flavor = "tap-preferred"; \
+        tapping-term-ms = <200>; \
+        require-prior-idle-ms = <125>; \
+        bindings = <first_bind>, <&kp>; \
+    )
 
-ZMK_BEHAVIOR(ht, hold_tap,
-    flavor = "tap-preferred";
-    tapping-term-ms = <200>;
-    bindings = <&no_re>, <&kp>;
-)
+#define MAKE_MT(name, second_bind) \
+    ZMK_BEHAVIOR(name, hold_tap, \
+        flavor = "hold-preferred"; \
+        tapping-term-ms = <200>; \
+        bindings = <&kp>, <second_bind>; \
+    )
+
+MAKE_HT(as_ht, &shifted)
+MAKE_HT(ht, &no_re)
+MAKE_HT(ht_cap, &caps_word)
+MAKE_MT(mt_smart_shft, &smart_shft)
 
 ZMK_BEHAVIOR(shifted, macro_one_param,
     bindings = 
@@ -90,18 +97,15 @@ ZMK_BEHAVIOR(no_re, macro_one_param,
 
 #define MAKE_HT_PAIR(NAME, R_KEY, L_KEY) \
     ZMK_BEHAVIOR(p_ ## NAME, macro, bindings = <&kp R_KEY &kp L_KEY>;) \
-    ZMK_BEHAVIOR(ht_ ## NAME, hold_tap, \
-        flavor = "tap-preferred"; \
-        tapping-term-ms = <200>; \
-        bindings = <&p_ ## NAME>, <&kp R_KEY>; \
-    )
+    MAKE_HT(ht_ ## NAME, &p_ ## NAME)
 
 MAKE_HT_PAIR(bkt, RBKT, LBKT)
 MAKE_HT_PAIR(brc, RBRC, LBRC)
 MAKE_HT_PAIR(par, RPAR, LPAR)
-#define HT_BKT &ht_bkt 0 0
-#define HT_BRC &ht_brc 0 0
-#define HT_PAR &ht_par 0 0
+
+#define HT_BKT &ht_bkt 0 RBKT
+#define HT_BRC &ht_brc 0 RBRC
+#define HT_PAR &ht_par 0 RPAR
 
 // tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
 ZMK_BEHAVIOR(smart_shft, mod_morph,
@@ -135,17 +139,18 @@ ZMK_COMBO(dqt, &kp DQT, LM1 LM2, 0)
 #define ___ &trans
 #define AS(key) &as key
 #define KP(key) &kp key
-#define MT(hold_key,tap_key) &mt hold_key tap_key
+#define MT(mod_key,tap_key) &mt mod_key tap_key
 #define LT_1(tap_key) &lt 1 tap_key
 #define LT_2(tap_key) &lt 2 tap_key
 #define LT_3(tap_key) &lt 3 tap_key
-#define HYPER &kp LG(LA(LCTRL))
+#define HYPER &ht_cap 0 LG(LA(LCTRL))
+#define MT_SMART_SHFT(mod_key) &mt_smart_shft mod_key 0 
 
 ZMK_LAYER(base,
-    XXX AS(Q) AS(W) AS(E) AS(R) AS(T)             AS(Y) AS(U) AS(I) AS(O) AS(P) XXX
-    XXX AS(A) AS(S) AS(D) AS(F) AS(G)             AS(H) AS(J) AS(K) AS(L) AS(SEMI) XXX
-    XXX AS(Z) AS(X) AS(C) AS(V) AS(B)             AS(N) AS(M) AS(COMMA) AS(DOT) AS(FSLH) XXX
-    MT(LALT,TAB) MT(LGUI,LC(SPACE)) LT_1(SPACE)   LT_2(ENTER) MT(RCTRL,ESC) KP(BSPC)
+    XXX AS(Q) AS(W) AS(E) AS(R) AS(T)              AS(Y) AS(U) AS(I) AS(O) AS(P) XXX
+    XXX AS(A) AS(S) AS(D) AS(F) AS(G)              AS(H) AS(J) AS(K) AS(L) AS(SEMI) XXX
+    XXX AS(Z) AS(X) AS(C) AS(V) AS(B)              AS(N) AS(M) AS(COMMA) AS(DOT) AS(FSLH) XXX
+    MT(LALT,TAB) MT_SMART_SHFT(LGUI) LT_1(SPACE)   LT_2(ENTER) MT(RCTRL,ESC) KP(BSPC)
 )
 
 ZMK_LAYER(lower,
