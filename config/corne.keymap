@@ -69,9 +69,9 @@ ZMK_BEHAVIOR(tap, macro_one_param,
     )
 
 MAKE_HT(ht, &tap)
+MAKE_HT(ht_hyper, &hyper)
 MAKE_MT(mt_cap, &caps_word)
 MAKE_MT(mt_smart_shft, &smart_shft)
-MAKE_MT(mt_hyper, &hyper)
 
 #define MAKE_HT_PAIR(NAME, L_KEY, R_KEY) \
     ZMK_BEHAVIOR(p_ ## NAME, macro, bindings = <&kp L_KEY &kp R_KEY &kp LEFT>;) \
@@ -125,7 +125,7 @@ ZMK_COMBO(dqt, HT_DQT, LM1 LM2, 0)
 #define LT_1(tap_key) &lt 1 tap_key
 #define LT_2(tap_key) &lt 2 tap_key
 #define LT_3(tap_key) &lt 3 tap_key
-#define MT_HYPER(tap_key) &mt_hyper 0 tap_key
+#define HT_HYPER(tap_key) &ht_hyper 0 tap_key
 #define MT_SMART_SHFT(mod_key) &mt_smart_shft mod_key 0
 
 
@@ -140,14 +140,14 @@ ZMK_LAYER(lower,
     XXX KP(N1) KP(N2) KP(N3) KP(N4) KP(N5)                 AS(GRAVE) KP(MINUS) KP(EQUAL) KP(LEFT_BRACKET) KP(RIGHT_BRACKET) XXX
     XXX KP(N6) KP(N7) MT(LSHFT,N8) MT(LCTRL,N9) LT_3(N0)   AS(BSLH) MT(RCMD,UNDERSCORE) MT(RALT,PLUS) KP(LBRC) KP(RBRC) XXX
     XXX KP(EXCL) KP(AT) KP(HASH) KP(DLLR) KP(PRCNT)        KP(CARET) KP(AMPS) KP(KP_MULTIPLY) KP(LPAR) KP(RPAR) XXX
-    ___ ___ ___                                            MT_HYPER(LG(SPACE)) ___ ___
+    ___ ___ ___                                            HT_HYPER(LG(SPACE)) ___ ___
 )
 
 ZMK_LAYER(raise,
     XXX AS(F1) AS(F2) AS(F3) AS(F4) AS(F5)                XXX KP(HOME) KP(UP) KP(END) XXX XXX
     XXX AS(F6) AS(F7) MT(LSHFT,F8) MT(LCTRL,F9) AS(F10)   &smart_shft KP(LEFT) KP(DOWN) KP(RIGHT) XXX XXX
     XXX AS(F11) AS(F12) AS(F13) AS(F14) AS(F15)           XXX KP(PG_UP) XXX KP(PG_DN) XXX XXX
-    ___ ___ MT_HYPER(LG(SPACE))                           ___ ___ ___
+    ___ ___ HT_HYPER(LG(SPACE))                           ___ ___ ___
 )
 
 ZMK_LAYER(media,
