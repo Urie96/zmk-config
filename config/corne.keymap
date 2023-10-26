@@ -13,6 +13,7 @@
 
 #include "../zmk-nodefree-config/helper.h"
 #include "../zmk-nodefree-config/keypos_def/keypos_42keys.h"
+#include "mouse.dtsi"
 
 /* Global settings */
 
@@ -37,7 +38,7 @@
     // cs-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
 };
 
-// ZMK_CONDITIONAL_LAYER(1 2, 4)
+ZMK_CONDITIONAL_LAYER(1 0, 0)
 
 ZMK_BEHAVIOR(hyper, macro,
     bindings = 
@@ -95,6 +96,13 @@ ZMK_BEHAVIOR(smart_shft, mod_morph,
     mods = <(MOD_LSFT)>;
 )
 
+// smart-mouse, requires PR #1366
+ZMK_BEHAVIOR(smart_mouse, tri_state,
+    bindings = <&tog 4>, <&none>, <&tog 4>;
+    ignored-key-positions = <LT1 LT3 RT1 RT2 RT3 RM1 RM2 RM3 RH0 RH1>;
+    ignored-layers = <4>;
+)
+
 /*                KEY POSITIONS
 
   ╭─────────────────────╮ ╭─────────────────────╮
@@ -128,7 +136,6 @@ ZMK_COMBO(dqt, HT_DQT, LM1 LM2, 0)
 #define HT_HYPER(tap_key) &ht_hyper 0 tap_key
 #define MT_SMART_SHFT(mod_key) &mt_smart_shft mod_key 0
 
-
 ZMK_LAYER(base,
     XXX AS(Q) AS(W) AS(E) AS(R) AS(T)              AS(Y) AS(U) AS(I) AS(O) AS(P) XXX
     XXX AS(A) AS(S) AS(D) AS(F) AS(G)              AS(H) AS(J) AS(K) AS(L) AS(SEMI) XXX
@@ -147,7 +154,7 @@ ZMK_LAYER(raise,
     XXX AS(F1) AS(F2) AS(F3) AS(F4) AS(F5)                XXX KP(HOME) KP(UP) KP(END) XXX XXX
     XXX AS(F6) AS(F7) MT(LSHFT,F8) MT(LCTRL,F9) AS(F10)   &smart_shft KP(LEFT) KP(DOWN) KP(RIGHT) XXX XXX
     XXX AS(F11) AS(F12) AS(F13) AS(F14) AS(F15)           XXX KP(PG_UP) XXX KP(PG_DN) XXX XXX
-    ___ ___ HT_HYPER(LG(SPACE))                           ___ ___ ___
+    ___ ___ &smart_mouse                                  ___ ___ ___
 )
 
 ZMK_LAYER(media,
@@ -155,4 +162,11 @@ ZMK_LAYER(media,
     XXX XXX XXX XXX XXX XXX      KP(C_PP) KP(C_PREV) KP(C_NEXT) XXX XXX XXX
     XXX XXX XXX XXX XXX XXX      KP(K_MUTE) KP(C_VOL_DN) KP(C_VOL_UP) KP(C_BRI_DN) KP(C_BRI_UP) XXX
     XXX &sys_reset &bootloader   &bootloader &sys_reset XXX
+)
+
+ZMK_LAYER(mouse,
+    XXX XXX XXX XXX XXX XXX   XXX U_WH_D U_MS_U U_WH_U XXX XXX
+    XXX XXX XXX XXX XXX XXX   XXX U_MS_L U_MS_D U_MS_R XXX XXX
+    XXX XXX XXX XXX XXX XXX   XXX XXX XXX XXX XXX XXX
+    XXX XXX XXX               XXX U_BTN2 U_BTN1
 )
