@@ -37,7 +37,21 @@
     // cs-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
 };
 
-ZMK_CONDITIONAL_LAYER(1 2, 4)
+// ZMK_CONDITIONAL_LAYER(1 2, 4)
+
+ZMK_BEHAVIOR(hyper, macro,
+    bindings = 
+      <&macro_press &mo 0 &kp RGUI &kp RALT &kp RCTRL>,
+      <&macro_pause_for_release>,
+      <&macro_release &mo 0 &kp RGUI &kp RALT &kp RCTRL>;
+)
+
+ZMK_BEHAVIOR(tap, macro_one_param,
+    bindings = 
+      <&macro_param_1to1>,
+      <&macro_tap>,
+      <&kp MACRO_PLACEHOLDER>;
+)
 
 #define MAKE_HT(name, hold_bind) \
     ZMK_BEHAVIOR(name, hold_tap, \
@@ -54,57 +68,26 @@ ZMK_CONDITIONAL_LAYER(1 2, 4)
         bindings = <&kp>, <tap_bind>; \
     )
 
-MAKE_HT(as_ht, &shifted)
-MAKE_HT(ht, &no_re)
+MAKE_HT(ht, &tap)
 MAKE_MT(mt_cap, &caps_word)
 MAKE_MT(mt_smart_shft, &smart_shft)
-
-ZMK_BEHAVIOR(shifted, macro_one_param,
-    bindings = 
-      <&macro_press>,
-      <&kp LSHFT &macro_param_1to1>,
-      <&macro_tap>,
-      <&kp MACRO_PLACEHOLDER>,
-      <&macro_release>,
-      <&kp LSHFT>;
-)
-
-ZMK_BEHAVIOR(as, macro_one_param,
-    bindings = 
-      <&macro_press>,
-      <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>,
-      <&macro_pause_for_release>,
-      <&macro_release>,
-      <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>;
-)
-
-ZMK_BEHAVIOR(as, macro_one_param,
-    bindings = 
-      <&macro_press>,
-      <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>,
-      <&macro_pause_for_release>,
-      <&macro_release>,
-      <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>;
-)
-
-ZMK_BEHAVIOR(no_re, macro_one_param,
-    bindings = 
-      <&macro_param_1to1>,
-      <&macro_tap>,
-      <&kp MACRO_PLACEHOLDER>;
-)
+MAKE_MT(mt_hyper, &hyper)
 
 #define MAKE_HT_PAIR(NAME, L_KEY, R_KEY) \
-    ZMK_BEHAVIOR(p_ ## NAME, macro, bindings = <&kp L_KEY &kp R_KEY>;) \
+    ZMK_BEHAVIOR(p_ ## NAME, macro, bindings = <&kp L_KEY &kp R_KEY &kp LEFT>;) \
     MAKE_HT(ht_ ## NAME, &p_ ## NAME)
 
 MAKE_HT_PAIR(bkt, LBKT, RBKT)
 MAKE_HT_PAIR(brc, LBRC, RBRC)
 MAKE_HT_PAIR(par, LPAR, RPAR)
+MAKE_HT_PAIR(sqt, SQT, SQT)
+MAKE_HT_PAIR(dqt, DQT, DQT)
 
 #define HT_BKT &ht_bkt 0 LBKT
 #define HT_BRC &ht_brc 0 LBRC
 #define HT_PAR &ht_par 0 LPAR
+#define HT_SQT &ht_sqt 0 SQT
+#define HT_DQT &ht_dqt 0 DQT
 
 // tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
 ZMK_BEHAVIOR(smart_shft, mod_morph,
@@ -131,19 +114,19 @@ ZMK_BEHAVIOR(smart_shft, mod_morph,
 ZMK_COMBO(bkt, HT_BKT, RT1 RT2, 0)
 ZMK_COMBO(brc, HT_BRC, RM1 RM2, 0)
 ZMK_COMBO(par, HT_PAR, RB1 RB2, 0)
-ZMK_COMBO(sqt, &kp SQT, LT1 LT2, 0)
-ZMK_COMBO(dqt, &kp DQT, LM1 LM2, 0)
+ZMK_COMBO(sqt, HT_SQT, LT1 LT2, 0)
+ZMK_COMBO(dqt, HT_DQT, LM1 LM2, 0)
 
 #define XXX &none
 #define ___ &trans
-#define AS(key) &as key
+#define AS(key) &ht LS(key) key
 #define KP(key) &kp key
 #define MT(mod_key,tap_key) &mt mod_key tap_key
 #define LT_1(tap_key) &lt 1 tap_key
 #define LT_2(tap_key) &lt 2 tap_key
 #define LT_3(tap_key) &lt 3 tap_key
-#define HYPER(key) &as LG(LA(LC(key)))
-#define MT_SMART_SHFT(mod_key) &mt_smart_shft mod_key 0 
+#define MT_HYPER(tap_key) &mt_hyper 0 tap_key
+#define MT_SMART_SHFT(mod_key) &mt_smart_shft mod_key 0
 
 
 ZMK_LAYER(base,
@@ -157,14 +140,14 @@ ZMK_LAYER(lower,
     XXX KP(N1) KP(N2) KP(N3) KP(N4) KP(N5)                 AS(GRAVE) KP(MINUS) KP(EQUAL) KP(LEFT_BRACKET) KP(RIGHT_BRACKET) XXX
     XXX KP(N6) KP(N7) MT(LSHFT,N8) MT(LCTRL,N9) LT_3(N0)   AS(BSLH) MT(RCMD,UNDERSCORE) MT(RALT,PLUS) KP(LBRC) KP(RBRC) XXX
     XXX KP(EXCL) KP(AT) KP(HASH) KP(DLLR) KP(PRCNT)        KP(CARET) KP(AMPS) KP(KP_MULTIPLY) KP(LPAR) KP(RPAR) XXX
-    ___ ___ LT_1(LG(SPACE))                                LT_2(LG(SPACE)) ___ ___
+    ___ ___ ___                                            MT_HYPER(LG(SPACE)) ___ ___
 )
 
 ZMK_LAYER(raise,
     XXX AS(F1) AS(F2) AS(F3) AS(F4) AS(F5)                XXX KP(HOME) KP(UP) KP(END) XXX XXX
     XXX AS(F6) AS(F7) MT(LSHFT,F8) MT(LCTRL,F9) AS(F10)   &smart_shft KP(LEFT) KP(DOWN) KP(RIGHT) XXX XXX
     XXX AS(F11) AS(F12) AS(F13) AS(F14) AS(F15)           XXX KP(PG_UP) XXX KP(PG_DN) XXX XXX
-    ___ ___ ___                                           ___ ___ ___
+    ___ ___ MT_HYPER(LG(SPACE))                           ___ ___ ___
 )
 
 ZMK_LAYER(media,
@@ -172,11 +155,4 @@ ZMK_LAYER(media,
     XXX XXX XXX XXX XXX XXX      KP(C_PP) KP(C_PREV) KP(C_NEXT) XXX XXX XXX
     XXX XXX XXX XXX XXX XXX      KP(K_MUTE) KP(C_VOL_DN) KP(C_VOL_UP) KP(C_BRI_DN) KP(C_BRI_UP) XXX
     XXX &sys_reset &bootloader   &bootloader &sys_reset XXX
-)
-
-ZMK_LAYER(shortcut,
-    XXX HYPER(Q) HYPER(W) HYPER(E) HYPER(R) HYPER(T)   HYPER(Y) HYPER(U) HYPER(I) HYPER(O) HYPER(P) XXX
-    XXX HYPER(A) HYPER(S) HYPER(D) HYPER(F) HYPER(G)   HYPER(H) HYPER(J) HYPER(K) HYPER(L) HYPER(SEMI) XXX
-    XXX HYPER(Z) HYPER(X) HYPER(C) HYPER(V) HYPER(B)   HYPER(N) HYPER(M) HYPER(COMMA) HYPER(DOT) HYPER(FSLH) XXX
-    XXX XXX XXX                                        XXX XXX XXX
 )
