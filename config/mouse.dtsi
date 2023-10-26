@@ -2,13 +2,13 @@
 
 &mmv {
   acceleration-exponent = <1>;      // 1
-  time-to-max-speed-ms = <1500>;    // 40
+  time-to-max-speed-ms = <1000>;    // 40
   delay-ms = <0>;                   // 0
 };
 
 &mwh {
   acceleration-exponent = <1>;      // 0
-  time-to-max-speed-ms = <5000>;    // 40
+  time-to-max-speed-ms = <2000>;    // 40
   delay-ms = <0>;                   // 10
 };
 
@@ -33,9 +33,8 @@
 #define SCROLL_LEFT SCROLL_HOR(-U_MOUSE_SCROLL_MAX)
 #define SCROLL_RIGHT SCROLL_HOR(U_MOUSE_SCROLL_MAX)
 
-#define U_BTN1 &mkp MB1
-#define U_BTN2 &mkp MB2
-#define U_BTN3 &mkp MB3
+#define U_LCLK &mkp LCLK
+#define U_RCLK &mkp RCLK
 #define U_MS_U &mmv MOVE_UP
 #define U_MS_D &mmv MOVE_DOWN
 #define U_MS_L &mmv MOVE_LEFT
