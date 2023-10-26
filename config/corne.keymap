@@ -44,7 +44,7 @@
 };
 
 &nice_view_spi {
-    cs-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
+    // cs-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
 };
 
 // ZMK_CONDITIONAL_LAYER(1 0, 0)
@@ -72,9 +72,16 @@ ZMK_BEHAVIOR(tap, macro_one_param,
         bindings = <hold_bind>, <tap_bind>; \
     )
 
+#define MAKE_MT(name, hold_bind, tap_bind) \
+    ZMK_BEHAVIOR(name, hold_tap, \
+        flavor = "hold-preferred"; \
+        tapping-term-ms = <200>; \
+        bindings = <hold_bind>, <tap_bind>; \
+    )
+
 MAKE_HT(ht, &tap, &kp)
-MAKE_HT(mt_hyper, &hyper, &kp)
-MAKE_HT(mt_smart_shft, &kp, &smart_shft)
+MAKE_MT(mt_hyper, &hyper, &kp)
+MAKE_MT(mt_smart_shft, &kp, &smart_shft)
 
 #define MT_HYPER(tap_key) &mt_hyper 0 tap_key
 #define MT_SMART_SHFT(mod_key) &mt_smart_shft mod_key 0
