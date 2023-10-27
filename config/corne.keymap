@@ -40,7 +40,6 @@
 ZMK_BEHAVIOR(tap, macro_one_param,
     bindings = 
       <&macro_param_1to1>,
-      <&macro_tap>,
       <&kp MACRO_PLACEHOLDER>;
 )
 
@@ -64,8 +63,6 @@ ZMK_BEHAVIOR(youl, macro, bindings = <&kp Y &kp O &kp U &kp L &kp I>;)
 MAKE_HT(ht, &tap, &kp)
 MAKE_MT(mt_smart_shft, &kp, &smart_shft)
 
-#define MT_SMART_SHFT(mod_key) &mt_smart_shft mod_key 0
-
 #define MAKE_HT_PAIR(NAME, L_KEY, R_KEY) \
     ZMK_BEHAVIOR(p_ ## NAME, macro, bindings = <&kp L_KEY &kp R_KEY &kp LEFT>;) \
     MAKE_HT(ht_ ## NAME, &p_ ## NAME, &kp)
@@ -75,12 +72,14 @@ MAKE_HT_PAIR(brc, LBRC, RBRC)
 MAKE_HT_PAIR(par, LPAR, RPAR)
 MAKE_HT_PAIR(sqt, SQT, SQT)
 MAKE_HT_PAIR(dqt, DQT, DQT)
+MAKE_HT_PAIR(gra, GRAVE, GRAVE)
 
 #define HT_BKT &ht_bkt 0 LBKT
 #define HT_BRC &ht_brc 0 LBRC
 #define HT_PAR &ht_par 0 LPAR
 #define HT_SQT &ht_sqt 0 SQT
 #define HT_DQT &ht_dqt 0 DQT
+#define HT_GRA &ht_gra 0 GRAVE
 
 // tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
 ZMK_BEHAVIOR(smart_shft, mod_morph,
@@ -109,36 +108,43 @@ ZMK_COMBO(brc, HT_BRC, RM1 RM2, BASE)
 ZMK_COMBO(par, HT_PAR, RB1 RB2, BASE)
 ZMK_COMBO(sqt, HT_SQT, LT1 LT2, BASE)
 ZMK_COMBO(dqt, HT_DQT, LM1 LM2, BASE)
+ZMK_COMBO(gra, HT_GRA, LB1 LB2, BASE)
 
 #define XXX &none
 #define ___ &trans
 #define AS(key) &ht LS(key) key
 #define KP(key) &kp key
 #define MT(mod_key,tap_key) &mt mod_key tap_key
+#define HT(hold_key,tap_key) &ht hold_key tap_key
+#define MT_LS(tap_key) &mt LSHFT tap_key
+#define MT_LG(tap_key) &mt LGUI tap_key
+#define MT_LC(tap_key) &mt LCTRL tap_key
+#define MT_LA(tap_key) &mt LALT tap_key
 #define LT_NUM(tap_key) &lt NUM tap_key
-#define LT_ARROW(tap_key) &lt ARROW tap_key
+#define LT_ARR(tap_key) &lt ARROW tap_key
 #define LT_SYS(tap_key) &lt SYS tap_key
-#define LT_HYPER(tap_key) &lt HYPER tap_key
+#define LT_HYP(tap_key) &lt HYPER tap_key
+#define MT_SM_S(mod_key) &mt_smart_shft mod_key 0
 
 ZMK_LAYER(base,
-    XXX AS(Q) AS(W) AS(E) AS(R) AS(T)                   AS(Y) AS(U) AS(I) AS(O) AS(P) XXX
-    XXX AS(A) AS(S) AS(D) AS(F) AS(G)                   AS(H) AS(J) AS(K) AS(L) AS(SEMI) XXX
-    XXX AS(Z) AS(X) AS(C) AS(V) AS(B)                   AS(N) AS(M) AS(COMMA) AS(DOT) AS(FSLH) XXX
-    MT(LALT,TAB) MT_SMART_SHFT(LGUI) LT_NUM(SPACE)      LT_ARROW(ENTER) MT(RCTRL,ESC) KP(BSPC)
+    XXX AS(Q) AS(W) AS(E) AS(R) AS(T)        AS(Y) AS(U) AS(I) AS(O) AS(P) XXX
+    XXX AS(A) AS(S) AS(D) AS(F) AS(G)        AS(H) AS(J) AS(K) AS(L) HT(SEMI,COLON) XXX
+    XXX AS(Z) AS(X) AS(C) AS(V) AS(B)        AS(N) AS(M) AS(COMMA) AS(DOT) AS(FSLH) XXX
+    MT_LA(TAB) MT_SM_S(LGUI) LT_NUM(SPACE)   LT_ARR(ENTER) MT_LC(ESC) KP(BSPC)
 )
 
 ZMK_LAYER(num,
-    XXX KP(GRAVE) KP(PRCNT) KP(EQUAL) KP(MINUS) KP(AT)    AS(GRAVE) KP(N7) KP(N8) KP(N9) KP(BSLH) XXX
-    XXX ___ ___ MT(LSHFT,PLUS) MT(LCTRL,UNDER) KP(EXCL)   KP(CARET) MT(RCMD,N4) MT(RALT,N5) KP(N6) KP(DOT) XXX
-    XXX ___ ___ KP(STAR) KP(AMPS) KP(PIPE)                KP(DLLR) KP(N1) KP(N2) KP(N3) KP(COMMA) XXX
-    ___ ___ ___                                           LT_HYPER(LG(SPACE)) KP(N0) ___
+    XXX KP(LBKT) KP(RBKT) KP(PLUS) KP(MINUS) KP(STAR)          KP(EXCL) KP(N7) KP(N8) KP(N9) KP(DLLR) XXX
+    XXX KP(LBKT) KP(RBRC) MT_LS(EQUAL) MT_LC(UNDER) KP(AMPS)   KP(CARET) MT_LC(N4) MT_LA(N5) KP(N6) KP(DOT) XXX
+    XXX LT_SYS(LPAR) KP(RPAR) KP(AT) KP(TILDE) KP(PIPE)        KP(PRCNT) KP(N1) KP(N2) KP(N3) KP(BSLH) XXX
+    ___ ___ ___                                                LT_HYP(LG(SPACE)) KP(N0) ___
 )
 
 ZMK_LAYER(arrow,
-    XXX AS(F1) AS(F2) AS(F3) AS(F4) AS(F5)                XXX KP(HOME) KP(UP) KP(END) XXX XXX
-    XXX AS(F6) AS(F7) MT(LSHFT,F8) MT(LCTRL,F9) AS(F10)   &smart_shft KP(LEFT) KP(DOWN) KP(RIGHT) XXX XXX
-    XXX AS(F11) AS(F12) AS(F13) AS(F14) AS(F15)           XXX KP(PG_UP) XXX KP(PG_DN) XXX XXX
-    ___ ___ LT_HYPER(LG(SPACE))                           ___ ___ ___
+    XXX AS(F1) AS(F2) AS(F3) AS(F4) AS(F5)          XXX KP(HOME) KP(UP) KP(END) XXX XXX
+    XXX AS(F6) AS(F7) MT_LS(F8) MT_LC(F9) AS(F10)   &smart_shft KP(LEFT) KP(DOWN) KP(RIGHT) XXX XXX
+    XXX AS(F11) AS(F12) AS(F13) AS(F14) AS(F15)     XXX KP(PG_UP) XXX KP(PG_DN) XXX XXX
+    ___ ___ LT_HYP(LG(SPACE))                       ___ ___ ___
 )
 
 #define _BT_SEL_KEYS_ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_CLR
