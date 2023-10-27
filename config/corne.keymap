@@ -10,7 +10,7 @@
 #define NUM 1
 #define ARROW 2
 #define SYS 3
-#define HYPER 5
+#define HYPER 4
 
 /* Global settings */
 
