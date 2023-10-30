@@ -110,6 +110,15 @@ ZMK_COMBO(sqt, HT_SQT, LT1 LT2, BASE)
 ZMK_COMBO(dqt, HT_DQT, LM1 LM2, BASE)
 ZMK_COMBO(gra, HT_GRA, LB1 LB2, BASE)
 
+#define MAKE_DT(name, first_tap, second_tap) ZMK_BEHAVIOR(name, tap_dance, no-delay; bindings = <first_tap>, <second_tap>;)
+
+MAKE_DT(dt_colon, &ht SEMI COLON, &kp EQUAL)
+MAKE_DT(dt_minus, &kp MINUS, &kp GT)
+MAKE_DT(dt_excl, &kp EXCL, &kp EQUAL)
+MAKE_DT(dt_caret, &kp CARET, &kp DLLR)
+MAKE_DT(dt_gt, &ht GT DOT, &kp EQUAL)
+MAKE_DT(dt_lt, &ht LT COMMA, &kp EQUAL)
+
 #define XXX &none
 #define ___ &trans
 #define AS(key) &ht LS(key) key
@@ -128,21 +137,21 @@ ZMK_COMBO(gra, HT_GRA, LB1 LB2, BASE)
 
 ZMK_LAYER(base,
     XXX AS(Q) AS(W) AS(E) AS(R) AS(T)        AS(Y) AS(U) AS(I) AS(O) AS(P) XXX
-    XXX AS(A) AS(S) AS(D) AS(F) AS(G)        AS(H) AS(J) AS(K) AS(L) HT(SEMI,COLON) XXX
-    XXX AS(Z) AS(X) AS(C) AS(V) AS(B)        AS(N) AS(M) AS(COMMA) AS(DOT) AS(FSLH) XXX
+    XXX AS(A) AS(S) AS(D) AS(F) AS(G)        AS(H) AS(J) AS(K) AS(L) &dt_colon XXX
+    XXX AS(Z) AS(X) AS(C) AS(V) AS(B)        AS(N) AS(M) &dt_lt &dt_gt AS(FSLH) XXX
     MT_LA(TAB) MT_SM_S(LGUI) LT_NUM(SPACE)   LT_ARR(ENTER) MT_LC(ESC) KP(BSPC)
 )
 
 ZMK_LAYER(num,
-    XXX KP(LBKT) KP(RBKT) KP(PLUS) KP(MINUS) KP(STAR)          KP(CARET) KP(N7) KP(N8) KP(N9) KP(DLLR) XXX
-    XXX KP(LBKT) KP(RBRC) MT_LS(EQUAL) MT_LC(UNDER) KP(AMPS)   KP(EXCL) MT_LC(N4) MT_LA(N5) KP(N6) KP(DOT) XXX
+    XXX KP(LBKT) KP(RBKT) KP(PLUS) &dt_minus KP(STAR)          &dt_caret KP(N7) KP(N8) KP(N9) KP(DLLR) XXX
+    XXX KP(LBKT) KP(RBRC) MT_LS(EQUAL) MT_LC(UNDER) KP(AMPS)   &dt_excl MT_LC(N4) MT_LA(N5) KP(N6) KP(DOT) XXX
     XXX LT_SYS(AT) KP(RPAR) KP(HASH) KP(TILDE) KP(PIPE)        KP(PRCNT) KP(N1) KP(N2) KP(N3) KP(BSLH) XXX
     ___ ___ ___                                                LT_HYP(LG(SPACE)) KP(N0) ___
 )
 
 ZMK_LAYER(arrow,
     XXX AS(F1) AS(F2) AS(F3) AS(F4) AS(F5)          XXX KP(HOME) KP(UP) KP(END) XXX XXX
-    XXX AS(F6) AS(F7) MT_LS(F8) MT_LC(F9) AS(F10)   &smart_shft KP(LEFT) KP(DOWN) KP(RIGHT) XXX XXX
+    XXX AS(F6) AS(F7) MT_LS(F8) MT_LC(F9) AS(F10)   &caps_word KP(LEFT) KP(DOWN) KP(RIGHT) XXX XXX
     XXX AS(F11) AS(F12) AS(F13) AS(F14) AS(F15)     XXX KP(PG_UP) XXX KP(PG_DN) XXX XXX
     ___ ___ LT_HYP(LG(SPACE))                       ___ ___ ___
 )
