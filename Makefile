@@ -2,6 +2,8 @@
 
 DOCKER_CMD=docker run -it --rm -v .:/zmk-config -w /zmk-config zmkfirmware/zmk-build-arm:stable
 
+all: build
+
 build_in_docker:
 	$(DOCKER_CMD) make build
 
@@ -15,7 +17,6 @@ init:
 	west init -l config
 	west update
 	west zephyr-export
-	west build -s zmk/app -b "nice_nano_v2" -p -- -DSHIELD="corne_left nice_view_adapter nice_view"
 
 build:
 	# west zephyr-export

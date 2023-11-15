@@ -1,5 +1,7 @@
 {
   "files.associations": {
-    "*.keymap": "c"
+    "*.keymap": "c",
+    "chrono": "c",
+    "typeinfo": "c"
   }
 }

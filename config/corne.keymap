@@ -45,7 +45,6 @@ ZMK_BEHAVIOR(tap, macro_one_param,
 )
 
 ZMK_BEHAVIOR(youl, macro, bindings = <PASSWORD>;)
-ZMK_BEHAVIOR(mulnum, multiple_keys, bindings = <&kp N1>, <&kp N2>, <&kp N3>;)
 
 #define MAKE_HT(name, hold_bind, tap_bind) \
     ZMK_BEHAVIOR(name, hold_tap, \
@@ -83,6 +82,8 @@ MAKE_HT_PAIR(gra, GRAVE, GRAVE)
 #define HT_DQT &ht_dqt 0 DQT
 #define HT_GRA &ht_gra 0 GRAVE
 
+ZMK_BEHAVIOR(p_ltgt, macro, bindings = <&kp LT &kp GT &kp LEFT>;)
+
 // tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
 ZMK_BEHAVIOR(smart_shft, mod_morph,
     bindings = <&sk LSHFT>, <&caps_word>;
@@ -111,15 +112,24 @@ ZMK_COMBO(brc, HT_BRC, RB1 RB2, BASE)
 ZMK_COMBO(sqt, HT_SQT, LT1 LT2, BASE)
 ZMK_COMBO(dqt, HT_DQT, LM1 LM2, BASE)
 ZMK_COMBO(gra, HT_GRA, LB1 LB2, BASE)
+ZMK_COMBO(ltgt, &p_ltgt, RB2 RB3, BASE, 50)
 
-#define MAKE_DT(name, first_tap, second_tap) ZMK_BEHAVIOR(name, tap_dance, no-delay; bindings = <first_tap>, <second_tap>;)
+#define MAKE_DT(name, first_tap, second_tap) ZMK_BEHAVIOR(name, tap_dance, no-delay; bindings = <&kp first_tap>, <&kp second_tap>;)
 
-MAKE_DT(dt_colon, &ht SEMI COLON, &kp EQUAL)
-MAKE_DT(dt_minus, &kp MINUS, &kp GT)
-MAKE_DT(dt_excl, &kp EXCL, &kp EQUAL)
-MAKE_DT(dt_caret, &kp CARET, &kp DLLR)
-MAKE_DT(dt_gt, &ht GT DOT, &kp EQUAL)
-MAKE_DT(dt_lt, &ht LT COMMA, &kp EQUAL)
+MAKE_DT(dt_colon_eq, COLON, EQUAL)
+MAKE_DT(dt_minus_gt, MINUS, GT)
+MAKE_DT(dt_excl_eq, EXCL, EQUAL)
+MAKE_DT(dt_caret_dllr, CARET, DLLR)
+MAKE_DT(dt_gt_eq, GT, EQUAL)
+MAKE_DT(dt_lt_eq, LT, EQUAL)
+
+#define MAKE_MUL(name, ...) ZMK_BEHAVIOR(name, multiple_keys, bindings = __VA_ARGS__;)
+
+MAKE_MUL(mul_colon, <&kp COLON>, <&dt_colon_eq>)
+MAKE_MUL(mul_minus, <&kp MINUS>, <&dt_minus_gt>)
+
+MAKE_HT(ht_mul_colon, &tap, &mul_colon)
+#define HT_MUL_COLON &ht_mul_colon SEMI 0
 
 #define XXX &none
 #define ___ &trans
@@ -136,32 +146,33 @@ MAKE_DT(dt_lt, &ht LT COMMA, &kp EQUAL)
 #define LT_SYS(tap_key) &lt SYS tap_key
 #define LT_HYP(tap_key) &lt HYPER tap_key
 #define MT_SM_S(mod_key) &mt_smart_shft mod_key 0
+#define MS(index) &ms index
 
 ZMK_LAYER(base,
     XXX AS(Q) AS(W) AS(E) AS(R) AS(T)        AS(Y) AS(U) AS(I) AS(O) AS(P) XXX
-    XXX AS(A) AS(S) AS(D) AS(F) AS(G)        AS(H) AS(J) AS(K) AS(L) &dt_colon XXX
-    XXX AS(Z) AS(X) AS(C) AS(V) AS(B)        AS(N) AS(M) &dt_lt &dt_gt AS(FSLH) XXX
+    XXX AS(A) AS(S) AS(D) AS(F) AS(G)        AS(H) AS(J) AS(K) AS(L) HT_MUL_COLON XXX
+    XXX AS(Z) AS(X) AS(C) AS(V) AS(B)        AS(N) AS(M) AS(COMMA) AS(DOT) AS(FSLH) XXX
     MT_LA(TAB) MT_SM_S(LGUI) LT_NUM(SPACE)   LT_ARR(ENTER) MT_LC(ESC) KP(BSPC)
 )
 
 ZMK_LAYER(num,
-    XXX KP(LBKT) KP(RBKT) KP(PLUS) &dt_minus KP(STAR)          &dt_caret KP(N7) KP(N8) KP(N9) KP(DLLR) XXX
+    XXX &dt_lt_eq &dt_gt_eq KP(PLUS) &mul_minus KP(STAR)        &dt_caret_dllr KP(N7) KP(N8) KP(N9) KP(DLLR) XXX
     XXX KP(LPAR) KP(RPAR) MT_LS(EQUAL) MT_LC(UNDER) KP(AMPS)   KP(PIPE) MT_LC(N4) MT_LA(N5) KP(N6) KP(DOT) XXX
-    XXX LT_SYS(AT) KP(RBRC) KP(HASH) KP(TILDE) &dt_excl        KP(PRCNT) KP(N1) KP(N2) KP(N3) KP(BSLH) XXX
+    XXX LT_SYS(AT) KP(RBRC) KP(HASH) KP(TILDE) &dt_excl_eq     KP(PRCNT) KP(N1) KP(N2) KP(N3) KP(BSLH) XXX
     ___ ___ ___                                                LT_HYP(LG(SPACE)) KP(N0) ___
 )
 
 ZMK_LAYER(arrow,
-    XXX AS(F1) AS(F2) AS(F3) AS(F4) AS(F5)          &mulnum KP(HOME) KP(UP) KP(END) XXX XXX
-    XXX AS(F6) AS(F7) MT_LS(F8) MT_LC(F9) AS(F10)   &ms 1 KP(LEFT) KP(DOWN) KP(RIGHT) XXX XXX
-    XXX AS(F11) AS(F12) AS(F13) AS(F14) AS(F15)     &ms 2 KP(PG_UP) XXX KP(PG_DN) XXX XXX
+    XXX AS(F1) AS(F2) AS(F3) AS(F4) AS(F5)          XXX KP(HOME) KP(UP) KP(END) XXX XXX
+    XXX AS(F6) AS(F7) MT_LS(F8) MT_LC(F9) AS(F10)   XXX KP(LEFT) KP(DOWN) KP(RIGHT) XXX XXX
+    XXX AS(F11) AS(F12) AS(F13) AS(F14) AS(F15)     XXX KP(PG_UP) XXX KP(PG_DN) XXX XXX
     ___ ___ LT_HYP(LG(SPACE))                       ___ ___ ___
 )
 
 #define _BT_SEL_KEYS_ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_CLR
 
 ZMK_LAYER(sys,
-    XXX  _BT_SEL_KEYS_                    XXX XXX XXX XXX XXX XXX
+    XXX  _BT_SEL_KEYS_                    MS(0) MS(1) MS(2) MS(3) MS(4) MS(5)
     XXX XXX XXX XXX XXX XXX               KP(C_PP) KP(C_PREV) KP(C_NEXT) XXX XXX XXX
     XXX XXX XXX XXX XXX XXX               KP(K_MUTE) KP(C_VOL_DN) KP(C_VOL_UP) KP(C_BRI_DN) KP(C_BRI_UP) XXX
     &out OUT_TOG &sys_reset &bootloader   &bootloader &sys_reset XXX
