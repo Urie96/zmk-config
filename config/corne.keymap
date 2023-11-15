@@ -11,7 +11,8 @@
 #define NUM 1
 #define ARROW 2
 #define SYS 3
-#define HYPER 4
+#define MEDIA 4
+#define HYPER 5
 
 /* Global settings */
 
@@ -114,7 +115,7 @@ ZMK_COMBO(dqt, HT_DQT, LM1 LM2, BASE)
 ZMK_COMBO(gra, HT_GRA, LB1 LB2, BASE)
 ZMK_COMBO(ltgt, &p_ltgt, RB2 RB3, BASE, 50)
 
-#define MAKE_DT(name, first_tap, second_tap) ZMK_BEHAVIOR(name, tap_dance, no-delay; bindings = <&kp first_tap>, <&kp second_tap>;)
+#define MAKE_DT(name, first_tap, second_tap) ZMK_BEHAVIOR(name, tap_dance, no-delay; tapping-term-ms= <300>; bindings = <&kp first_tap>, <&kp second_tap>;)
 
 MAKE_DT(dt_colon_eq, COLON, EQUAL)
 MAKE_DT(dt_minus_gt, MINUS, GT)
@@ -122,11 +123,13 @@ MAKE_DT(dt_excl_eq, EXCL, EQUAL)
 MAKE_DT(dt_caret_dllr, CARET, DLLR)
 MAKE_DT(dt_gt_eq, GT, EQUAL)
 MAKE_DT(dt_lt_eq, LT, EQUAL)
+MAKE_DT(dt_hash_excl, HASH, EXCL)
 
 #define MAKE_MUL(name, ...) ZMK_BEHAVIOR(name, multiple_keys, bindings = __VA_ARGS__;)
 
-MAKE_MUL(mul_colon, <&kp COLON>, <&dt_colon_eq>)
-MAKE_MUL(mul_minus, <&kp MINUS>, <&dt_minus_gt>)
+MAKE_MUL(mul_colon, <&kp COLON>, <&dt_colon_eq>, <&dt_colon_eq>)
+MAKE_MUL(mul_minus, <&kp MINUS>, <&dt_minus_gt>, <&kp MINUS>)
+MAKE_MUL(mul_num, <&kp N0>, <&kp N1>, <&kp N2>, <&kp N3>, <&kp N4>)
 
 MAKE_HT(ht_mul_colon, &tap, &mul_colon)
 #define HT_MUL_COLON &ht_mul_colon SEMI 0
@@ -144,6 +147,7 @@ MAKE_HT(ht_mul_colon, &tap, &mul_colon)
 #define LT_NUM(tap_key) &lt NUM tap_key
 #define LT_ARR(tap_key) &lt ARROW tap_key
 #define LT_SYS(tap_key) &lt SYS tap_key
+#define LT_MED(tap_key) &lt MEDIA tap_key
 #define LT_HYP(tap_key) &lt HYPER tap_key
 #define MT_SM_S(mod_key) &mt_smart_shft mod_key 0
 #define MS(index) &ms index
@@ -156,10 +160,10 @@ ZMK_LAYER(base,
 )
 
 ZMK_LAYER(num,
-    XXX &dt_lt_eq &dt_gt_eq KP(PLUS) &mul_minus KP(STAR)        &dt_caret_dllr KP(N7) KP(N8) KP(N9) KP(DLLR) XXX
-    XXX KP(LPAR) KP(RPAR) MT_LS(EQUAL) MT_LC(UNDER) KP(AMPS)   KP(PIPE) MT_LC(N4) MT_LA(N5) KP(N6) KP(DOT) XXX
-    XXX LT_SYS(AT) KP(RBRC) KP(HASH) KP(TILDE) &dt_excl_eq     KP(PRCNT) KP(N1) KP(N2) KP(N3) KP(BSLH) XXX
-    ___ ___ ___                                                LT_HYP(LG(SPACE)) KP(N0) ___
+    XXX &dt_lt_eq &dt_gt_eq KP(PLUS) &mul_minus KP(STAR)          &dt_caret_dllr KP(N7) KP(N8) KP(N9) KP(DLLR) XXX
+    XXX KP(LPAR) KP(RPAR) MT_LS(EQUAL) MT_LC(UNDER) KP(AMPS)      KP(PIPE) MT_LC(N4) MT_LA(N5) KP(N6) KP(DOT) XXX
+    XXX LT_SYS(AT) KP(RBRC) &dt_hash_excl KP(TILDE) &dt_excl_eq   KP(PRCNT) KP(N1) KP(N2) KP(N3) KP(BSLH) XXX
+    ___ ___ ___                                                   LT_HYP(LG(SPACE)) LT_MED(N0) ___
 )
 
 ZMK_LAYER(arrow,
@@ -172,10 +176,17 @@ ZMK_LAYER(arrow,
 #define _BT_SEL_KEYS_ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_CLR
 
 ZMK_LAYER(sys,
-    XXX  _BT_SEL_KEYS_                    MS(0) MS(1) MS(2) MS(3) MS(4) MS(5)
-    XXX XXX XXX XXX XXX XXX               KP(C_PP) KP(C_PREV) KP(C_NEXT) XXX XXX XXX
-    XXX XXX XXX XXX XXX XXX               KP(K_MUTE) KP(C_VOL_DN) KP(C_VOL_UP) KP(C_BRI_DN) KP(C_BRI_UP) XXX
+    XXX  _BT_SEL_KEYS_                    MS(0) MS(1) MS(2) MS(3) &mul_num XXX
+    XXX XXX XXX XXX XXX XXX               XXX XXX XXX XXX XXX XXX
+    XXX XXX XXX XXX XXX XXX               XXX XXX XXX XXX XXX XXX
     &out OUT_TOG &sys_reset &bootloader   &bootloader &sys_reset XXX
+)
+
+ZMK_LAYER(media,
+    XXX XXX XXX XXX XXX XXX   XXX KP(C_BRI_DN) KP(C_VOL_UP) KP(C_BRI_UP) XXX XXX
+    XXX XXX XXX XXX XXX XXX   KP(C_PP) KP(C_PREV) KP(C_VOL_DN) KP(C_NEXT) XXX XXX
+    XXX XXX XXX XXX XXX XXX   XXX XXX KP(K_MUTE) XXX XXX XXX
+                XXX XXX XXX   XXX XXX XXX
 )
 
 #define HYP(key) AS(RG(RA(RC(key))))
