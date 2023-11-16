@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "name": "Linux",
+      "includePath": [
+        "${workspaceFolder}/zmk/app/include/**",
+        "${workspaceFolder}/zephyr/include",
+        "/usr/include"
+      ],
+      "defines": [],
+      "compilerPath": "~/zephyr-sdk-0.15.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc",
+      "cStandard": "c17",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "linux-gcc-x86",
+      "compileCommands": "${workspaceFolder}/build/compile_commands.json",
+      "forcedInclude": []
+    }
+  ],
+  "version": 4
+}
