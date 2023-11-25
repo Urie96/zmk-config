@@ -13,6 +13,7 @@
     "peripheral.h": "c",
     "split_peripheral_status_changed.h": "c",
     "sstream": "c",
-    "keys.h": "c"
+    "keys.h": "c",
+    "battery_state_changed.h": "c"
   }
 }
