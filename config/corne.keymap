@@ -160,9 +160,9 @@ ZMK_LAYER(base,
 )
 
 ZMK_LAYER(num,
-    XXX &dt_lt_eq &dt_gt_eq KP(PLUS) &mul_minus KP(STAR)          &dt_caret_dllr KP(N7) KP(N8) KP(N9) KP(DLLR) XXX
-    XXX KP(LPAR) KP(RPAR) MT_LS(EQUAL) MT_LC(UNDER) KP(AMPS)      KP(PIPE) MT_LC(N4) MT_LA(N5) KP(N6) KP(DOT) XXX
-    XXX LT_SYS(AT) KP(RBRC) &dt_hash_excl KP(TILDE) &dt_excl_eq   KP(PRCNT) KP(N1) KP(N2) KP(N3) KP(BSLH) XXX
+    XXX KP(LBKT) KP(RBKT) KP(PLUS) KP(MINUS) KP(STAR)          KP(CARET) KP(N7) KP(N8) KP(N9) KP(DLLR) XXX
+    XXX KP(LPAR) KP(RPAR) MT_LS(EQUAL) MT_LC(UNDER) KP(AMPS)   KP(PIPE) MT_LC(N4) MT_LA(N5) KP(N6) KP(DOT) XXX
+    XXX LT_SYS(AT) KP(RBRC) KP(HASH) KP(TILDE) KP(EXCL)        KP(PRCNT) KP(N1) KP(N2) KP(N3) KP(BSLH) XXX
     ___ ___ ___                                                   LT_HYP(LG(SPACE)) LT_MED(N0) ___
 )
 
