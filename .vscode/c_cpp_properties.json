@@ -8,7 +8,7 @@
         "/usr/include"
       ],
       "defines": [],
-      "compilerPath": "~/zephyr-sdk-0.15.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc",
+      "compilerPath": "~/zephyr-sdk-0.16.3/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc",
       "cStandard": "c17",
       "cppStandard": "c++17",
       "intelliSenseMode": "linux-gcc-x86",
