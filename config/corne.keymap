@@ -3,8 +3,8 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/bt.h>
 
-#include "../zmk-nodefree-config/helper.h"
-#include "../zmk-nodefree-config/keypos_def/keypos_42keys.h"
+#include "./zmk-nodefree-config/helper.h"
+#include "./zmk-nodefree-config/keypos_def/keypos_36keys.h"
 
 #define BASE 0
 #define NUM 1
@@ -37,6 +37,12 @@
 };
 
 // ZMK_CONDITIONAL_LAYER(1 0, 0)
+
+/ {
+    chosen {
+        zmk,matrix_transform = &five_column_transform;
+    };
+};
 
 ZMK_BEHAVIOR(tap, macro_one_param,
     bindings = 
@@ -132,48 +138,48 @@ ZMK_COMBO(ltgt, &p_ltgt, RB2 RB3, BASE, 50)
 #define MT_SM_S(mod_key) &mt_smart_shft mod_key 0
 
 ZMK_LAYER(base,
-    XXX AS(Q) AS(W) AS(E) AS(R) AS(T)        AS(Y) AS(U) AS(I) AS(O) AS(P) XXX
-    XXX AS(A) AS(S) AS(D) AS(F) AS(G)        AS(H) AS(J) AS(K) AS(L) HT(SEMI,COLON) XXX
-    XXX AS(Z) AS(X) AS(C) AS(V) AS(B)        AS(N) AS(M) AS(COMMA) AS(DOT) AS(FSLH) XXX
+    AS(Q) AS(W) AS(E) AS(R) AS(T)            AS(Y) AS(U) AS(I) AS(O) AS(P)
+    AS(A) AS(S) AS(D) AS(F) AS(G)            AS(H) AS(J) AS(K) AS(L) HT(SEMI,COLON)
+    AS(Z) AS(X) AS(C) AS(V) AS(B)            AS(N) AS(M) AS(COMMA) AS(DOT) AS(FSLH)
     MT_LA(TAB) MT_SM_S(LGUI) LT_NUM(SPACE)   LT_ARR(ENTER) MT_LC(ESC) KP(BSPC)
 )
 
 ZMK_LAYER(num,
-    XXX KP(LBKT) KP(RBKT) KP(PLUS) KP(MINUS) KP(STAR)          KP(CARET) KP(N7) KP(N8) KP(N9) KP(DLLR) XXX
-    XXX KP(LPAR) KP(RPAR) MT_LS(EQUAL) MT_LC(UNDER) KP(AMPS)   KP(PIPE) MT_LC(N4) MT_LA(N5) KP(N6) KP(DOT) XXX
-    XXX LT_SYS(AT) KP(RBRC) KP(HASH) KP(TILDE) KP(EXCL)        KP(PRCNT) KP(N1) KP(N2) KP(N3) KP(BSLH) XXX
-    ___ ___ ___                                                LT_HYP(LG(SPACE)) LT_MED(N0) ___
+    KP(LBKT) KP(RBKT) KP(PLUS) KP(MINUS) KP(STAR)          KP(CARET) KP(N7) KP(N8) KP(N9) KP(DLLR)
+    KP(LPAR) KP(RPAR) MT_LS(EQUAL) MT_LC(UNDER) KP(AMPS)   KP(PIPE) MT_LC(N4) MT_LA(N5) KP(N6) KP(DOT)
+    LT_SYS(AT) KP(RBRC) KP(HASH) KP(TILDE) KP(EXCL)        KP(PRCNT) KP(N1) KP(N2) KP(N3) KP(BSLH)
+    ___ ___ ___                                            LT_HYP(LG(SPACE)) LT_MED(N0) ___
 )
 
 ZMK_LAYER(arrow,
-    XXX AS(F1) AS(F2) AS(F3) AS(F4) AS(F5)          &sys_info KP(HOME) KP(UP) KP(END) XXX XXX
-    XXX AS(F6) AS(F7) MT_LS(F8) MT_LC(F9) AS(F10)   XXX KP(LEFT) KP(DOWN) KP(RIGHT) XXX XXX
-    XXX AS(F11) AS(F12) AS(F13) AS(F14) &sys_info     XXX KP(PG_UP) XXX KP(PG_DN) XXX XXX
-    ___ ___ LT_HYP(LG(SPACE))                       ___ ___ ___
+    AS(F1) AS(F2) AS(F3) AS(F4) AS(F5)          &sys_info KP(HOME) KP(UP) KP(END) XXX
+    AS(F6) AS(F7) MT_LS(F8) MT_LC(F9) AS(F10)   XXX KP(LEFT) KP(DOWN) KP(RIGHT) XXX
+    AS(F11) AS(F12) AS(F13) AS(F14) &sys_info   XXX KP(PG_UP) XXX KP(PG_DN) XXX
+    ___ ___ LT_HYP(LG(SPACE))                   ___ ___ ___
 )
 
 #define _BT_SEL_KEYS_ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_CLR
 
 ZMK_LAYER(sys,
-    XXX  _BT_SEL_KEYS_                    XXX KP(C_BRI_DN) KP(C_VOL_UP) KP(C_BRI_UP) XXX XXX
-    XXX XXX XXX XXX XXX XXX               KP(C_PP) KP(C_PREV) KP(C_VOL_DN) KP(C_NEXT) XXX XXX
-    XXX XXX XXX XXX XXX XXX               XXX XXX KP(K_MUTE) XXX XXX XXX
-    &out OUT_TOG &sys_reset &bootloader   &bootloader &sys_reset XXX
+    _BT_SEL_KEYS_                         XXX KP(C_BRI_DN) KP(C_VOL_UP) KP(C_BRI_UP) XXX
+    XXX XXX XXX XXX XXX                   KP(C_PP) KP(C_PREV) KP(C_VOL_DN) KP(C_NEXT) XXX
+    XXX XXX XXX XXX XXX                   XXX XXX KP(K_MUTE) XXX XXX
+    &out OUT_TOG &sys_reset &bootloader   &bootloader &sys_reset &soft_off
 )
 
 ZMK_LAYER(media,
-    XXX XXX XXX XXX XXX XXX   XXX KP(C_BRI_DN) KP(C_VOL_UP) KP(C_BRI_UP) XXX XXX
-    XXX XXX XXX XXX XXX XXX   KP(C_PP) KP(C_PREV) KP(C_VOL_DN) KP(C_NEXT) XXX XXX
-    XXX XXX XXX XXX XXX XXX   XXX XXX KP(K_MUTE) XXX XXX XXX
-                XXX XXX XXX   XXX XXX XXX
+    XXX XXX XXX XXX XXX   XXX KP(C_BRI_DN) KP(C_VOL_UP) KP(C_BRI_UP) XXX
+    XXX XXX XXX XXX XXX   KP(C_PP) KP(C_PREV) KP(C_VOL_DN) KP(C_NEXT) XXX
+    XXX XXX XXX XXX XXX   XXX XXX KP(K_MUTE) XXX XXX
+    XXX XXX XXX           XXX XXX XXX
 )
 
 #define HYP(key) AS(RG(RA(RC(key))))
 
 ZMK_LAYER(hyper,
-    XXX HYP(Q) HYP(W) HYP(E) HYP(R) HYP(T)   HYP(Y) HYP(U) HYP(I) HYP(O) HYP(P) XXX
-    XXX HYP(A) HYP(S) HYP(D) HYP(F) HYP(G)   HYP(H) HYP(J) HYP(K) HYP(L) HYP(SEMI) XXX
-    XXX HYP(Z) HYP(X) HYP(C) HYP(V) HYP(B)   &youl HYP(M) HYP(COMMA) HYP(DOT) HYP(FSLH) XXX
-    ___ ___ ___                              ___ ___ ___
+    HYP(Q) HYP(W) HYP(E) HYP(R) HYP(T)   HYP(Y) HYP(U) HYP(I) HYP(O) HYP(P)
+    HYP(A) HYP(S) HYP(D) HYP(F) HYP(G)   HYP(H) HYP(J) HYP(K) HYP(L) HYP(SEMI)
+    HYP(Z) HYP(X) HYP(C) HYP(V) HYP(B)   &youl HYP(M) HYP(COMMA) HYP(DOT) HYP(FSLH)
+    ___ ___ ___                          ___ ___ ___
 )
 
