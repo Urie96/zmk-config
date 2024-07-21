@@ -153,8 +153,8 @@ ZMK_LAYER(num,
 
 ZMK_LAYER(arrow,
     AS(F1) AS(F2) AS(F3) AS(F4) AS(F5)          &sys_info KP(HOME) KP(UP) KP(END) XXX
-    AS(F6) AS(F7) MT_LS(F8) MT_LC(F9) AS(F10)   XXX KP(LEFT) KP(DOWN) KP(RIGHT) XXX
-    AS(F11) AS(F12) AS(F13) AS(F14) &sys_info   XXX KP(PG_UP) XXX KP(PG_DN) XXX
+    AS(F6) AS(F7) MT_LS(F8) MT_LC(F9) AS(F10)   KP(DEL) KP(LEFT) KP(DOWN) KP(RIGHT) XXX
+    AS(F11) AS(F12) AS(F13) AS(F14) &sys_info   KP(INS) KP(PG_UP) XXX KP(PG_DN) XXX
     ___ ___ LT_HYP(LG(SPACE))                   ___ ___ ___
 )
 
