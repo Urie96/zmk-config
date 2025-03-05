@@ -1,0 +1,201 @@
+layout: {qmk_keyboard: corne_rotated, layout_name: LAYOUT_split_3x5_3}
+layers:
+  base:
+  - - {t: Q, h: '&tap LS(Q)'}
+    - {t: W, h: '&tap LS(W)'}
+    - {t: E, h: '&tap LS(E)'}
+    - {t: R, h: '&tap LS(R)'}
+    - {t: T, h: '&tap LS(T)'}
+    - {t: Y, h: '&tap LS(Y)'}
+    - {t: U, h: '&tap LS(U)'}
+    - {t: I, h: '&tap LS(I)'}
+    - {t: O, h: '&tap LS(O)'}
+    - {t: P, h: '&tap LS(P)'}
+  - - {t: A, h: '&tap LS(A)'}
+    - {t: S, h: '&tap LS(S)'}
+    - {t: D, h: '&tap LS(D)'}
+    - {t: F, h: '&tap LS(F)'}
+    - {t: G, h: '&tap LS(G)'}
+    - {t: H, h: '&tap LS(H)'}
+    - {t: J, h: '&tap LS(J)'}
+    - {t: K, h: '&tap LS(K)'}
+    - {t: L, h: '&tap LS(L)'}
+    - {t: ':', h: '&tap SEMI'}
+  - - {t: Z, h: '&tap LS(Z)'}
+    - {t: X, h: '&tap LS(X)'}
+    - {t: C, h: '&tap LS(C)'}
+    - {t: V, h: '&tap LS(V)'}
+    - {t: B, h: '&tap LS(B)'}
+    - {t: N, h: '&tap LS(N)'}
+    - {t: M, h: '&tap LS(M)'}
+    - {t: ',', h: '&tap LS(COMMA)'}
+    - {t: ., h: '&tap LS(DOT)'}
+    - {t: /, h: '&tap LS(FSLH)'}
+  - - {t: TAB, h: LALT}
+    - {t: LSHFT, h: LGUI, s: '&caps_word'}
+    - {t: SPACE, h: num}
+    - {t: ENTER, h: arrow}
+    - {t: ESC, h: LCTRL}
+    - BSPC
+  num:
+  - ['[', ']', +, '-', '*', ^, '7', '8', '9', $]
+  - - (
+    - )
+    - {t: '=', h: LSHFT}
+    - {t: _, h: LCTRL}
+    - '&'
+    - '|'
+    - {t: '4', h: LCTRL}
+    - {t: '5', h: LALT}
+    - '6'
+    - .
+  - - {t: '{', h: sys}
+    - '}'
+    - '#'
+    - '~'
+    - '!'
+    - {t: '%', h: '&tap AT'}
+    - '1'
+    - '2'
+    - '3'
+    - \
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {type: held}
+    - {t: Gui+SPACE, h: hyper}
+    - {t: '0', h: media}
+    - {t: ▽, type: trans}
+  arrow:
+  - - {t: F1, h: '&tap LS(F1)'}
+    - {t: F2, h: '&tap LS(F2)'}
+    - {t: F3, h: '&tap LS(F3)'}
+    - {t: F4, h: '&tap LS(F4)'}
+    - {t: F5, h: '&tap LS(F5)'}
+    - '&sys_info'
+    - HOME
+    - UP
+    - END
+    - ''
+  - - {t: F6, h: '&tap LS(F6)'}
+    - {t: F7, h: '&tap LS(F7)'}
+    - {t: F8, h: LSHFT}
+    - {t: F9, h: LCTRL}
+    - {t: F10, h: '&tap LS(F10)'}
+    - DEL
+    - LEFT
+    - DOWN
+    - RIGHT
+    - ''
+  - - {t: F11, h: '&tap LS(F11)'}
+    - {t: F12, h: '&tap LS(F12)'}
+    - {t: F13, h: '&tap LS(F13)'}
+    - {t: F14, h: '&tap LS(F14)'}
+    - '&sys_info'
+    - INS
+    - PG UP
+    - ''
+    - PG DN
+    - ''
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: Gui+SPACE, h: hyper}
+    - {type: held}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  sys:
+  - - {t: BT, h: '0'}
+    - {t: BT, h: '1'}
+    - {t: BT, h: '2'}
+    - {t: BT, h: '3'}
+    - BT CLR
+    - ''
+    - BRI DN
+    - VOL UP
+    - BRI UP
+    - ''
+  - ['', '', '', '', '', PP, PREV, VOL DN, NEXT, '']
+  - - {type: held}
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - MUTE
+    - ''
+    - ''
+  - - OUT TOG
+    - '&sys_reset'
+    - {t: '&bootloader', type: held}
+    - '&bootloader'
+    - '&sys_reset'
+    - '&soft_off'
+  media:
+  - ['', '', '', '', '', '', BRI DN, VOL UP, BRI UP, '']
+  - ['', '', '', '', '', PP, PREV, VOL DN, NEXT, '']
+  - ['', '', '', '', '', '', '', MUTE, '', '']
+  - - ''
+    - ''
+    - {type: held}
+    - ''
+    - {type: held}
+    - ''
+  hyper:
+  - - {t: Gui+AltGr+Ctl+Q, h: '&tap LS(RG(RA(RC(Q))))'}
+    - {t: Gui+AltGr+Ctl+W, h: '&tap LS(RG(RA(RC(W))))'}
+    - {t: Gui+AltGr+Ctl+E, h: '&tap LS(RG(RA(RC(E))))'}
+    - {t: Gui+AltGr+Ctl+R, h: '&tap LS(RG(RA(RC(R))))'}
+    - {t: Gui+AltGr+Ctl+T, h: '&tap LS(RG(RA(RC(T))))'}
+    - {t: Gui+AltGr+Ctl+Y, h: '&tap LS(RG(RA(RC(Y))))'}
+    - {t: Gui+AltGr+Ctl+U, h: '&tap LS(RG(RA(RC(U))))'}
+    - {t: Gui+AltGr+Ctl+I, h: '&tap LS(RG(RA(RC(I))))'}
+    - {t: Gui+AltGr+Ctl+O, h: '&tap LS(RG(RA(RC(O))))'}
+    - {t: Gui+AltGr+Ctl+P, h: '&tap LS(RG(RA(RC(P))))'}
+  - - {t: Gui+AltGr+Ctl+A, h: '&tap LS(RG(RA(RC(A))))'}
+    - {t: Gui+AltGr+Ctl+S, h: '&tap LS(RG(RA(RC(S))))'}
+    - {t: Gui+AltGr+Ctl+D, h: '&tap LS(RG(RA(RC(D))))'}
+    - {t: Gui+AltGr+Ctl+F, h: '&tap LS(RG(RA(RC(F))))'}
+    - {t: Gui+AltGr+Ctl+G, h: '&tap LS(RG(RA(RC(G))))'}
+    - {t: Gui+AltGr+Ctl+H, h: '&tap LS(RG(RA(RC(H))))'}
+    - {t: Gui+AltGr+Ctl+J, h: '&tap LS(RG(RA(RC(J))))'}
+    - {t: Gui+AltGr+Ctl+K, h: '&tap LS(RG(RA(RC(K))))'}
+    - {t: Gui+AltGr+Ctl+L, h: '&tap LS(RG(RA(RC(L))))'}
+    - {t: Gui+AltGr+Ctl+;, h: '&tap LS(RG(RA(RC(SEMI))))'}
+  - - {t: Gui+AltGr+Ctl+Z, h: '&tap LS(RG(RA(RC(Z))))'}
+    - {t: Gui+AltGr+Ctl+X, h: '&tap LS(RG(RA(RC(X))))'}
+    - {t: Gui+AltGr+Ctl+C, h: '&tap LS(RG(RA(RC(C))))'}
+    - {t: Gui+AltGr+Ctl+V, h: '&tap LS(RG(RA(RC(V))))'}
+    - {t: Gui+AltGr+Ctl+B, h: '&tap LS(RG(RA(RC(B))))'}
+    - '&youl'
+    - {t: Gui+AltGr+Ctl+M, h: '&tap LS(RG(RA(RC(M))))'}
+    - {t: 'Gui+AltGr+Ctl+,', h: '&tap LS(RG(RA(RC(COMMA))))'}
+    - {t: Gui+AltGr+Ctl+., h: '&tap LS(RG(RA(RC(DOT))))'}
+    - {t: Gui+AltGr+Ctl+/, h: '&tap LS(RG(RA(RC(FSLH))))'}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {type: held}
+    - {type: held}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+combos:
+- p: [6, 7]
+  k: {t: '[', h: '&p_bkt'}
+  l: [base]
+- p: [16, 17]
+  k: {t: (, h: '&p_par'}
+  l: [base]
+- p: [26, 27]
+  k: {t: '{', h: '&p_brc'}
+  l: [base]
+- p: [3, 2]
+  k: {t: '''', h: '&p_sqt'}
+  l: [base]
+- p: [13, 12]
+  k: {t: '"', h: '&p_dqt'}
+  l: [base]
+- p: [23, 22]
+  k: {t: '`', h: '&p_gra'}
+  l: [base]
+- p: [27, 28]
+  k: '&p_ltgt'
+  l: [base]
