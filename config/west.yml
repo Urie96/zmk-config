@@ -6,9 +6,10 @@ manifest:
       url-base: https://github.com/zmkfirmware
   projects:
     - name: zmk
-      remote: Urie96
-      # remote: zmkfirmware
-      revision: main
+      # remote: Urie96
+      remote: zmkfirmware
+      # revision: main
+      revision: v0.3
       import: app/west.yml
   self:
     path: config
